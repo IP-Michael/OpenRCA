@@ -1,0 +1,2058 @@
+instruction,prediction,groundtruth,passed,failed,score,row_id,task_index
+"During the time range 2026-07-21 08:57:56 to 2026-07-21 09:07:58 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_2. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784604776.972
+datetime: 2026-07-21 09:02:56
+reason: PortFlap_CU_du1
+run_id: 2
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784604776972
+phase_end_epoch_ms: 1784605078527",,"CU-du1-link
+PortFlap_CU_du1",0.0,0.0,task_6
+"During the time range 2026-07-21 09:10:02 to 2026-07-21 09:20:08 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_3. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 09:10:02"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784605502.388
+datetime: 2026-07-21 09:15:02
+reason: LinkFailure_CU_du0
+run_id: 3
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784605502388
+phase_end_epoch_ms: 1784605808522",,2026-07-21 09:15:02,0.0,1.0,task_1
+"During the time range 2026-07-21 09:22:03 to 2026-07-21 09:32:10 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_4. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 09:22:03.341926"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784606223.313
+datetime: 2026-07-21 09:27:03
+reason: CPU_Contention_du0
+run_id: 4
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784606223313
+phase_end_epoch_ms: 1784606530865",,2026-07-21 09:27:03,0.0,2.0,task_1
+"During the time range 2026-07-21 09:34:07 to 2026-07-21 09:44:13 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_5. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Contention_cu""
+    }
+}","level: Infrastructure
+component: cu
+timestamp: 1784606948.041
+datetime: 2026-07-21 09:39:08
+reason: Memory_Contention_cu
+run_id: 5
+category: Infrastructure
+anomaly_name: Memory_Contention_cu
+phase_start_epoch_ms: 1784606948041
+phase_end_epoch_ms: 1784607253315","cu
+Memory_Contention_cu",,1.0,3.0,task_6
+"During the time range 2026-07-21 09:46:16 to 2026-07-21 09:56:26 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_6. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784607676.227
+datetime: 2026-07-21 09:51:16
+reason: Network_Contention
+run_id: 6
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784607676227
+phase_end_epoch_ms: 1784607986920",,Network,0.0,4.0,task_3
+"During the time range 2026-07-21 09:58:28 to 2026-07-21 10:08:34 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_7. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du1
+timestamp: 1784608408.801
+datetime: 2026-07-21 10:03:28
+reason: L1_Contention_du1
+run_id: 7
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784608408801
+phase_end_epoch_ms: 1784608714390",,L1_Contention_du1,0.0,5.0,task_2
+"During the time range 2026-07-21 10:10:24 to 2026-07-21 10:20:31 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_8. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784609124.756
+datetime: 2026-07-21 10:15:24
+reason: MAC_Contention_du0
+run_id: 8
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784609124756
+phase_end_epoch_ms: 1784609431813",,MAC_Contention_du0,0.0,6.0,task_2
+"During the time range 2026-07-21 10:22:28 to 2026-07-21 10:32:38 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_9. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: cu
+timestamp: 1784609848.285
+datetime: 2026-07-21 10:27:28
+reason: PDCP_Contention_cu
+run_id: 9
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784609848285
+phase_end_epoch_ms: 1784610158356",,PDCP_Contention_cu,0.0,7.0,task_2
+"During the time range 2026-07-21 10:34:41 to 2026-07-21 10:44:48 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_10. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""MAC_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784610581.07
+datetime: 2026-07-21 10:39:41
+reason: QueueSize_Tuning_du0
+run_id: 10
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784610581070
+phase_end_epoch_ms: 1784610888836",,"du0
+QueueSize_Tuning_du0",0.0,8.0,task_6
+"During the time range 2026-07-21 10:46:51 to 2026-07-21 10:56:55 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_11. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:16:50"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:16:50"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Application
+component: du1
+timestamp: 1784611311.757
+datetime: 2026-07-21 10:51:51
+reason: Memory_Leak_du1
+run_id: 11
+category: Application
+anomaly_name: Memory_Leak_du1
+phase_start_epoch_ms: 1784611311757
+phase_end_epoch_ms: 1784611615152",,2026-07-21 10:51:51,0.0,9.0,task_1
+"During the time range 2026-07-21 11:05:48 to 2026-07-21 11:15:53 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_13. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784612448.373
+datetime: 2026-07-21 11:10:48
+reason: PortFlap_CU_du0
+run_id: 13
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784612448373
+phase_end_epoch_ms: 1784612753750",CU-du0-link,PortFlap_CU_du0,0.5,10.0,task_6
+"During the time range 2026-07-21 11:17:59 to 2026-07-21 11:28:07 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_14. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784613179.705
+datetime: 2026-07-21 11:22:59
+reason: LinkFailure_CU_du1
+run_id: 14
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784613179705
+phase_end_epoch_ms: 1784613487224",,"CU-du1-link
+LinkFailure_CU_du1",0.0,11.0,task_6
+"During the time range 2026-07-21 11:30:00 to 2026-07-21 11:40:07 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_15. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:30:00"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:30:00"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784613900.547
+datetime: 2026-07-21 11:35:00
+reason: CPU_Contention_du1
+run_id: 15
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784613900547
+phase_end_epoch_ms: 1784614207806",,"du1
+2026-07-21 11:35:00",0.0,12.0,task_5
+"During the time range 2026-07-21 11:42:12 to 2026-07-21 11:52:19 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_16. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:43:47"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784614632.626
+datetime: 2026-07-21 11:47:12
+reason: Memory_Contention_du1
+run_id: 16
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784614632626
+phase_end_epoch_ms: 1784614939611",,2026-07-21 11:47:12,0.0,13.0,task_1
+"During the time range 2026-07-21 11:54:26 to 2026-07-21 12:04:38 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_17. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:54:37"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784615366.823
+datetime: 2026-07-21 11:59:26
+reason: Network_Contention
+run_id: 17
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784615366823
+phase_end_epoch_ms: 1784615678402",,"Network
+2026-07-21 11:59:26",0.0,14.0,task_5
+"During the time range 2026-07-21 12:06:46 to 2026-07-21 12:16:51 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_18. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:06:46"",
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du1
+timestamp: 1784616106.372
+datetime: 2026-07-21 12:11:46
+reason: L1_Contention_du1
+run_id: 18
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784616106372
+phase_end_epoch_ms: 1784616411948",,"2026-07-21 12:11:46
+L1_Contention_du1",0.0,15.0,task_4
+"During the time range 2026-07-21 12:18:41 to 2026-07-21 12:28:48 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_19. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:21:17"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784616821.576
+datetime: 2026-07-21 12:23:41
+reason: MAC_Contention_du0
+run_id: 19
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784616821576
+phase_end_epoch_ms: 1784617128777",,2026-07-21 12:23:41,0.0,16.0,task_1
+"During the time range 2026-07-21 12:30:42 to 2026-07-21 12:40:52 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_20. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:30:42"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784617542.652
+datetime: 2026-07-21 12:35:42
+reason: PDCP_Contention_cu
+run_id: 20
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784617542652
+phase_end_epoch_ms: 1784617852393",,2026-07-21 12:35:42,0.0,17.0,task_1
+"During the time range 2026-07-21 12:43:00 to 2026-07-21 12:53:06 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_21. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:48:30"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784618280.264
+datetime: 2026-07-21 12:48:00
+reason: QueueSize_Tuning_du0
+run_id: 21
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784618280264
+phase_end_epoch_ms: 1784618586716",2026-07-21 12:48:00,,1.0,18.0,task_1
+"During the time range 2026-07-21 12:54:57 to 2026-07-21 13:05:01 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_22. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784618998.036
+datetime: 2026-07-21 12:59:58
+reason: Memory_Leak_cu
+run_id: 22
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784618998036
+phase_end_epoch_ms: 1784619301191",,Memory_Leak_cu,0.0,19.0,task_2
+"During the time range 2026-07-21 13:13:49 to 2026-07-21 13:23:54 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_24. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:18:55"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784620129.814
+datetime: 2026-07-21 13:18:49
+reason: PortFlap_CU_du0
+run_id: 24
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784620129814
+phase_end_epoch_ms: 1784620434428",,PortFlap_CU_du0,0.0,20.0,task_2
+"During the time range 2026-07-21 13:25:52 to 2026-07-21 13:35:58 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_25. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:30:57"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784620852.781
+datetime: 2026-07-21 13:30:52
+reason: LinkFailure_CU_du0
+run_id: 25
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784620852781
+phase_end_epoch_ms: 1784621158787","CU-du0-link
+2026-07-21 13:30:52",,1.0,21.0,task_5
+"During the time range 2026-07-21 13:38:00 to 2026-07-21 13:48:08 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_26. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:38:26"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784621580.886
+datetime: 2026-07-21 13:43:00
+reason: CPU_Contention_du1
+run_id: 26
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784621580886
+phase_end_epoch_ms: 1784621888110",,"du1
+2026-07-21 13:43:00",0.0,22.0,task_5
+"During the time range 2026-07-21 13:50:11 to 2026-07-21 14:00:17 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_27. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:55:17"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784622311.407
+datetime: 2026-07-21 13:55:11
+reason: Memory_Contention_du0
+run_id: 27
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784622311407
+phase_end_epoch_ms: 1784622617867",2026-07-21 13:55:11,,1.0,23.0,task_1
+"During the time range 2026-07-21 14:02:22 to 2026-07-21 14:12:33 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_28. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 14:07:33"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784623042.171
+datetime: 2026-07-21 14:07:22
+reason: Network_Contention
+run_id: 28
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784623042171
+phase_end_epoch_ms: 1784623353535",2026-07-21 14:07:22,Network,0.5,24.0,task_5
+"During the time range 2026-07-21 14:14:41 to 2026-07-21 14:24:46 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_29. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784623781.914
+datetime: 2026-07-21 14:19:41
+reason: L1_Contention_du0
+run_id: 29
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784623781914
+phase_end_epoch_ms: 1784624086971",,L1_Contention_du0,0.0,25.0,task_2
+"During the time range 2026-07-21 14:26:53 to 2026-07-21 14:36:59 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_30. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784624513.606
+datetime: 2026-07-21 14:31:53
+reason: MAC_Contention_du0
+run_id: 30
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784624513606
+phase_end_epoch_ms: 1784624819904",du0,MAC_Contention_du0,0.5,26.0,task_6
+"During the time range 2026-07-21 14:39:03 to 2026-07-21 14:49:15 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_31. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: cu
+timestamp: 1784625243.733
+datetime: 2026-07-21 14:44:03
+reason: PDCP_Contention_cu
+run_id: 31
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784625243733
+phase_end_epoch_ms: 1784625555194",cu,PDCP_Contention_cu,0.5,27.0,task_6
+"During the time range 2026-07-21 14:51:20 to 2026-07-21 15:01:28 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_32. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784625981.023
+datetime: 2026-07-21 14:56:21
+reason: QueueSize_Tuning_du0
+run_id: 32
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784625981023
+phase_end_epoch_ms: 1784626288097",,"du0
+QueueSize_Tuning_du0",0.0,28.0,task_6
+"During the time range 2026-07-21 15:03:34 to 2026-07-21 15:13:37 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_33. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:03:34"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:03:34"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784626714.933
+datetime: 2026-07-21 15:08:34
+reason: Memory_Leak_cu
+run_id: 33
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784626714933
+phase_end_epoch_ms: 1784627017947",,"2026-07-21 15:08:34
+cu",0.0,29.0,task_5
+"During the time range 2026-07-21 15:22:42 to 2026-07-21 15:32:47 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_35. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:22:42"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784627862.728
+datetime: 2026-07-21 15:27:42
+reason: PortFlap_CU_du0
+run_id: 35
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784627862728
+phase_end_epoch_ms: 1784628167811",,"PortFlap_CU_du0
+2026-07-21 15:27:42",0.0,30.0,task_4
+"During the time range 2026-07-21 15:34:57 to 2026-07-21 15:45:04 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_36. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:40:02"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784628597.378
+datetime: 2026-07-21 15:39:57
+reason: LinkFailure_CU_du1
+run_id: 36
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784628597378
+phase_end_epoch_ms: 1784628904006",,LinkFailure_CU_du1,0.0,31.0,task_2
+"During the time range 2026-07-21 15:46:58 to 2026-07-21 15:57:05 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_37. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:46:58"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784629318.337
+datetime: 2026-07-21 15:51:58
+reason: CPU_Contention_du1
+run_id: 37
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784629318337
+phase_end_epoch_ms: 1784629625586",,"CPU_Contention_du1
+2026-07-21 15:51:58",0.0,32.0,task_4
+"During the time range 2026-07-21 15:59:06 to 2026-07-21 16:09:13 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_38. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:59:06"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784630046.47
+datetime: 2026-07-21 16:04:06
+reason: Memory_Contention_du0
+run_id: 38
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784630046470
+phase_end_epoch_ms: 1784630353778",du0,2026-07-21 16:04:06,0.5,33.0,task_5
+"During the time range 2026-07-21 16:11:26 to 2026-07-21 16:21:38 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_39. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""MAC_Contention_du0""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784630786.837
+datetime: 2026-07-21 16:16:26
+reason: Network_Contention
+run_id: 39
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784630786837
+phase_end_epoch_ms: 1784631098259",,Network,0.0,34.0,task_3
+"During the time range 2026-07-21 16:23:36 to 2026-07-21 16:33:42 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_40. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:23:36"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784631516.838
+datetime: 2026-07-21 16:28:36
+reason: L1_Contention_du0
+run_id: 40
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784631516838
+phase_end_epoch_ms: 1784631822426",,"L1_Contention_du0
+2026-07-21 16:28:36
+du0",0.0,35.0,task_7
+"During the time range 2026-07-21 16:35:36 to 2026-07-21 16:45:43 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_41. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:40:41"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du1
+timestamp: 1784632236.157
+datetime: 2026-07-21 16:40:36
+reason: MAC_Contention_du1
+run_id: 41
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784632236157
+phase_end_epoch_ms: 1784632543042",2026-07-21 16:40:36,"MAC_Contention_du1
+du1",0.33,36.0,task_7
+"During the time range 2026-07-21 16:47:47 to 2026-07-21 16:57:55 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_42. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:51:14"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784632967.631
+datetime: 2026-07-21 16:52:47
+reason: PDCP_Contention_cu
+run_id: 42
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784632967631
+phase_end_epoch_ms: 1784633275946",,2026-07-21 16:52:47,0.0,37.0,task_1
+"During the time range 2026-07-21 16:59:55 to 2026-07-21 17:10:01 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_43. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:59:55"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du1
+timestamp: 1784633695.247
+datetime: 2026-07-21 17:04:55
+reason: QueueSize_Tuning_du1
+run_id: 43
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784633695247
+phase_end_epoch_ms: 1784634001876",,"du1
+QueueSize_Tuning_du1
+2026-07-21 17:04:55",0.0,38.0,task_7
+"During the time range 2026-07-21 17:12:05 to 2026-07-21 17:22:08 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_44. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:12:05"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784634425.713
+datetime: 2026-07-21 17:17:05
+reason: Memory_Leak_cu
+run_id: 44
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784634425713
+phase_end_epoch_ms: 1784634728933",,"Memory_Leak_cu
+2026-07-21 17:17:05
+cu",0.0,39.0,task_7
+"During the time range 2026-07-21 17:31:07 to 2026-07-21 17:41:12 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_46. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:36:11"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784635567.398
+datetime: 2026-07-21 17:36:07
+reason: PortFlap_CU_du0
+run_id: 46
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784635567398
+phase_end_epoch_ms: 1784635872332",,PortFlap_CU_du0,0.0,40.0,task_2
+"During the time range 2026-07-21 17:43:17 to 2026-07-21 17:53:24 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_47. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784636297.404
+datetime: 2026-07-21 17:48:17
+reason: LinkFailure_CU_du0
+run_id: 47
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784636297404
+phase_end_epoch_ms: 1784636604459",,"CU-du0-link
+LinkFailure_CU_du0",0.0,41.0,task_6
+"During the time range 2026-07-21 17:55:24 to 2026-07-21 18:05:32 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_48. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:55:24"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784637024.74
+datetime: 2026-07-21 18:00:24
+reason: CPU_Contention_du0
+run_id: 48
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784637024740
+phase_end_epoch_ms: 1784637332933",,"CPU_Contention_du0
+2026-07-21 18:00:24",0.0,42.0,task_4
+"During the time range 2026-07-21 18:07:37 to 2026-07-21 18:17:45 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_49. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 18:12:45"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784637757.664
+datetime: 2026-07-21 18:12:37
+reason: Memory_Contention_du0
+run_id: 49
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784637757664
+phase_end_epoch_ms: 1784638065205",,du0,0.0,43.0,task_3
+"During the time range 2026-07-21 18:19:56 to 2026-07-21 18:30:07 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_50. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784638496.766
+datetime: 2026-07-21 18:24:56
+reason: Network_Contention
+run_id: 50
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784638496766
+phase_end_epoch_ms: 1784638807308",,Network,0.0,44.0,task_3
+"During the time range 2026-07-21 18:32:14 to 2026-07-21 18:42:19 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_51. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784639234.53
+datetime: 2026-07-21 18:37:14
+reason: L1_Contention_du0
+run_id: 51
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784639234530
+phase_end_epoch_ms: 1784639539761",L1_Contention_du0,,1.0,45.0,task_2
+"During the time range 2026-07-21 18:44:11 to 2026-07-21 18:54:18 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_52. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du1
+timestamp: 1784639951.081
+datetime: 2026-07-21 18:49:11
+reason: MAC_Contention_du1
+run_id: 52
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784639951081
+phase_end_epoch_ms: 1784640258467",,MAC_Contention_du1,0.0,46.0,task_2
+"During the time range 2026-07-21 18:56:23 to 2026-07-21 19:06:32 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_53. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 18:56:23.401"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784640683.536
+datetime: 2026-07-21 19:01:23
+reason: PDCP_Contention_cu
+run_id: 53
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784640683536
+phase_end_epoch_ms: 1784640992123",,"2026-07-21 19:01:23
+cu
+PDCP_Contention_cu",0.0,47.0,task_7
+"During the time range 2026-07-21 19:08:23 to 2026-07-21 19:18:30 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_54. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Application
+component: du1
+timestamp: 1784641403.924
+datetime: 2026-07-21 19:13:23
+reason: QueueSize_Tuning_du1
+run_id: 54
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784641403924
+phase_end_epoch_ms: 1784641710867",du1,,1.0,48.0,task_3
+"During the time range 2026-07-21 19:20:37 to 2026-07-21 19:30:40 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_55. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:20:40"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784642137.874
+datetime: 2026-07-21 19:25:37
+reason: Memory_Leak_du0
+run_id: 55
+category: Application
+anomaly_name: Memory_Leak_du0
+phase_start_epoch_ms: 1784642137874
+phase_end_epoch_ms: 1784642440827",,2026-07-21 19:25:37,0.0,49.0,task_1
+"During the time range 2026-07-21 19:40:46 to 2026-07-21 19:50:52 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_57. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:40:46"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:40:46"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784643346.568
+datetime: 2026-07-21 19:45:46
+reason: PortFlap_CU_du1
+run_id: 57
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784643346568
+phase_end_epoch_ms: 1784643652317",,2026-07-21 19:45:46,0.0,50.0,task_1
+"During the time range 2026-07-21 19:53:00 to 2026-07-21 20:03:06 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_58. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:58:05"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""MAC_Contention_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784644080.317
+datetime: 2026-07-21 19:58:00
+reason: LinkFailure_CU_du0
+run_id: 58
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784644080317
+phase_end_epoch_ms: 1784644386744",2026-07-21 19:58:00,LinkFailure_CU_du0,0.5,51.0,task_4
+"During the time range 2026-07-21 20:05:07 to 2026-07-21 20:15:16 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_59. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:05:07"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:05:07"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Infrastructure
+component: cu
+timestamp: 1784644807.45
+datetime: 2026-07-21 20:10:07
+reason: CPU_Contention_cu
+run_id: 59
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784644807450
+phase_end_epoch_ms: 1784645116511",,2026-07-21 20:10:07,0.0,52.0,task_1
+"During the time range 2026-07-21 20:17:25 to 2026-07-21 20:27:32 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_60. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784645545.519
+datetime: 2026-07-21 20:22:25
+reason: Memory_Contention_du0
+run_id: 60
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784645545519
+phase_end_epoch_ms: 1784645852847",,du0,0.0,53.0,task_3
+"During the time range 2026-07-21 20:29:35 to 2026-07-21 20:39:46 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_61. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:29:35"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Leak_du0""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784646275.723
+datetime: 2026-07-21 20:34:35
+reason: Network_Contention
+run_id: 61
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784646275723
+phase_end_epoch_ms: 1784646586347",,"2026-07-21 20:34:35
+Network
+Network_Contention",0.0,54.0,task_7
+"During the time range 2026-07-21 20:41:56 to 2026-07-21 20:52:01 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_62. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""QueueSize_Tuning_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784647016.029
+datetime: 2026-07-21 20:46:56
+reason: L1_Contention_du0
+run_id: 62
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784647016029
+phase_end_epoch_ms: 1784647321410",,du0,0.0,55.0,task_3
+"During the time range 2026-07-21 20:54:09 to 2026-07-21 21:04:16 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_63. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:59:14"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784647749.453
+datetime: 2026-07-21 20:59:09
+reason: MAC_Contention_du0
+run_id: 63
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784647749453
+phase_end_epoch_ms: 1784648056733",2026-07-21 20:59:09,du0,0.5,56.0,task_5
+"During the time range 2026-07-21 21:06:21 to 2026-07-21 21:16:31 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_64. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784648481.44
+datetime: 2026-07-21 21:11:21
+reason: PDCP_Contention_cu
+run_id: 64
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784648481440
+phase_end_epoch_ms: 1784648791491",,cu,0.0,57.0,task_3
+"During the time range 2026-07-21 21:18:32 to 2026-07-21 21:28:39 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_65. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 21:18:32"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784649212.903
+datetime: 2026-07-21 21:23:32
+reason: QueueSize_Tuning_du0
+run_id: 65
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784649212903
+phase_end_epoch_ms: 1784649519841",,"du0
+QueueSize_Tuning_du0
+2026-07-21 21:23:32",0.0,58.0,task_7
+"During the time range 2026-07-21 21:30:41 to 2026-07-21 21:40:44 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_66. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 21:35:44"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784649941.24
+datetime: 2026-07-21 21:35:41
+reason: Memory_Leak_cu
+run_id: 66
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784649941240
+phase_end_epoch_ms: 1784650244498",2026-07-21 21:35:41,,1.0,59.0,task_1
+"During the time range 2026-07-21 21:49:45 to 2026-07-21 21:59:45 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_68. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784651085.494
+datetime: 2026-07-21 21:54:45
+reason: PortFlap_CU_du0
+run_id: 68
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784651085494
+phase_end_epoch_ms: 1784651385770",,"CU-du0-link
+PortFlap_CU_du0",0.0,60.0,task_6
+"During the time range 2026-07-21 22:01:51 to 2026-07-21 22:11:58 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_69. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784651812.016
+datetime: 2026-07-21 22:06:52
+reason: LinkFailure_CU_du0
+run_id: 69
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784651812016
+phase_end_epoch_ms: 1784652118407",,"2026-07-21 22:06:52
+LinkFailure_CU_du0",0.0,61.0,task_4
+"During the time range 2026-07-21 22:13:59 to 2026-07-21 22:24:07 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_70. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:13:59"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784652539.718
+datetime: 2026-07-21 22:18:59
+reason: CPU_Contention_du1
+run_id: 70
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784652539718
+phase_end_epoch_ms: 1784652847707",,"du1
+2026-07-21 22:18:59",0.0,62.0,task_5
+"During the time range 2026-07-21 22:26:15 to 2026-07-21 22:36:22 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_71. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:26:15"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784653275.217
+datetime: 2026-07-21 22:31:15
+reason: Memory_Contention_du0
+run_id: 71
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784653275217
+phase_end_epoch_ms: 1784653582494",,2026-07-21 22:31:15,0.0,63.0,task_1
+"During the time range 2026-07-21 22:38:50 to 2026-07-21 22:49:01 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_72. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:38:50"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:38:50"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""Memory_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784654030.062
+datetime: 2026-07-21 22:43:50
+reason: Network_Contention
+run_id: 72
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784654030062
+phase_end_epoch_ms: 1784654341170",,"2026-07-21 22:43:50
+Network_Contention",0.0,64.0,task_4
+"During the time range 2026-07-21 22:50:58 to 2026-07-21 23:01:04 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_73. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:51:08"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du1
+timestamp: 1784654758.711
+datetime: 2026-07-21 22:55:58
+reason: L1_Contention_du1
+run_id: 73
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784654758711
+phase_end_epoch_ms: 1784655064489",,2026-07-21 22:55:58,0.0,65.0,task_1
+"During the time range 2026-07-21 23:02:59 to 2026-07-21 23:13:06 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_74. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 23:02:59"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""MAC_Contention_du1""
+    }
+}","level: Application
+component: du0
+timestamp: 1784655479.615
+datetime: 2026-07-21 23:07:59
+reason: MAC_Contention_du0
+run_id: 74
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784655479615
+phase_end_epoch_ms: 1784655786717",,"2026-07-21 23:07:59
+du0",0.0,66.0,task_5
+"During the time range 2026-07-21 23:15:15 to 2026-07-21 23:25:24 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_75. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784656215.049
+datetime: 2026-07-21 23:20:15
+reason: PDCP_Contention_cu
+run_id: 75
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784656215049
+phase_end_epoch_ms: 1784656524984",,cu,0.0,67.0,task_3
+"During the time range 2026-07-21 23:27:24 to 2026-07-21 23:37:32 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_76. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 23:27:34"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du0
+timestamp: 1784656944.679
+datetime: 2026-07-21 23:32:24
+reason: QueueSize_Tuning_du0
+run_id: 76
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784656944679
+phase_end_epoch_ms: 1784657252063",,"du0
+QueueSize_Tuning_du0
+2026-07-21 23:32:24",0.0,68.0,task_7
+"During the time range 2026-07-21 23:39:37 to 2026-07-21 23:49:41 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_77. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784657677.573
+datetime: 2026-07-21 23:44:37
+reason: Memory_Leak_cu
+run_id: 77
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784657677573
+phase_end_epoch_ms: 1784657981499",,"Memory_Leak_cu
+cu",0.0,69.0,task_6
+"During the time range 2026-07-21 23:58:59 to 2026-07-22 00:09:04 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_79. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:04:04"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""PortFlap_CU_du1""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784658839.382
+datetime: 2026-07-22 00:03:59
+reason: PortFlap_CU_du1
+run_id: 79
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784658839382
+phase_end_epoch_ms: 1784659144612","CU-du1-link
+2026-07-22 00:03:59",,1.0,70.0,task_5
+"During the time range 2026-07-22 00:11:20 to 2026-07-22 00:21:26 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_80. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:11:20"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784659580.116
+datetime: 2026-07-22 00:16:20
+reason: LinkFailure_CU_du1
+run_id: 80
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784659580116
+phase_end_epoch_ms: 1784659886283",,"CU-du1-link
+LinkFailure_CU_du1
+2026-07-22 00:16:20",0.0,71.0,task_7
+"During the time range 2026-07-22 00:23:26 to 2026-07-22 00:33:35 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_81. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Infrastructure
+component: cu
+timestamp: 1784660307.0
+datetime: 2026-07-22 00:28:26
+reason: CPU_Contention_cu
+run_id: 81
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784660307000
+phase_end_epoch_ms: 1784660615407",,cu,0.0,72.0,task_3
+"During the time range 2026-07-22 00:35:32 to 2026-07-22 00:45:40 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_82. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:35:47"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:35:47"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784661032.908
+datetime: 2026-07-22 00:40:32
+reason: Memory_Contention_du0
+run_id: 82
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784661032908
+phase_end_epoch_ms: 1784661340330",,"du0
+2026-07-22 00:40:32",0.0,73.0,task_5
+"During the time range 2026-07-22 00:47:51 to 2026-07-22 00:58:03 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_83. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784661771.464
+datetime: 2026-07-22 00:52:51
+reason: Network_Contention
+run_id: 83
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784661771464
+phase_end_epoch_ms: 1784662083043",,Network_Contention,0.0,74.0,task_2
+"During the time range 2026-07-22 01:00:01 to 2026-07-22 01:10:06 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_84. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du1
+timestamp: 1784662501.396
+datetime: 2026-07-22 01:05:01
+reason: L1_Contention_du1
+run_id: 84
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784662501396
+phase_end_epoch_ms: 1784662806854",,"du1
+L1_Contention_du1",0.0,75.0,task_6
+"During the time range 2026-07-22 01:12:01 to 2026-07-22 01:22:09 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_85. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:12:14"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du0
+timestamp: 1784663221.809
+datetime: 2026-07-22 01:17:01
+reason: MAC_Contention_du0
+run_id: 85
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784663221809
+phase_end_epoch_ms: 1784663529038",,2026-07-22 01:17:01,0.0,76.0,task_1
+"During the time range 2026-07-22 01:24:16 to 2026-07-22 01:34:25 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_86. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:29:19"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784663956.676
+datetime: 2026-07-22 01:29:16
+reason: PDCP_Contention_cu
+run_id: 86
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784663956676
+phase_end_epoch_ms: 1784664265653",2026-07-22 01:29:16,,1.0,77.0,task_1
+"During the time range 2026-07-22 01:36:33 to 2026-07-22 01:46:40 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_87. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du0
+timestamp: 1784664693.749
+datetime: 2026-07-22 01:41:33
+reason: QueueSize_Tuning_du0
+run_id: 87
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784664693749
+phase_end_epoch_ms: 1784665000624",,"du0
+QueueSize_Tuning_du0",0.0,78.0,task_6
+"During the time range 2026-07-22 01:48:44 to 2026-07-22 01:58:47 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_88. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:53:47"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU-du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784665425.018
+datetime: 2026-07-22 01:53:45
+reason: Memory_Leak_cu
+run_id: 88
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784665425018
+phase_end_epoch_ms: 1784665727976",,Memory_Leak_cu,0.0,79.0,task_2
+"During the time range 2026-07-22 02:07:59 to 2026-07-22 02:18:04 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_90. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:14:39"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784666579.245
+datetime: 2026-07-22 02:12:59
+reason: PortFlap_CU_du0
+run_id: 90
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784666579245
+phase_end_epoch_ms: 1784666884605",,"CU-du0-link
+PortFlap_CU_du0
+2026-07-22 02:12:59",0.0,80.0,task_7
+"During the time range 2026-07-22 02:20:02 to 2026-07-22 02:30:09 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_91. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784667302.163
+datetime: 2026-07-22 02:25:02
+reason: LinkFailure_CU_du1
+run_id: 91
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784667302163
+phase_end_epoch_ms: 1784667609010",,CU-du1-link,0.0,81.0,task_3
+"During the time range 2026-07-22 02:32:13 to 2026-07-22 02:42:21 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_92. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:32:13"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Infrastructure
+component: cu
+timestamp: 1784668033.388
+datetime: 2026-07-22 02:37:13
+reason: CPU_Contention_cu
+run_id: 92
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784668033388
+phase_end_epoch_ms: 1784668341682",,2026-07-22 02:37:13,0.0,82.0,task_1
+"During the time range 2026-07-22 02:44:07 to 2026-07-22 02:54:13 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_93. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:44:07"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784668747.13
+datetime: 2026-07-22 02:49:07
+reason: Memory_Contention_du1
+run_id: 93
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784668747130
+phase_end_epoch_ms: 1784669053967",,"du1
+Memory_Contention_du1
+2026-07-22 02:49:07",0.0,83.0,task_7
+"During the time range 2026-07-22 02:56:31 to 2026-07-22 03:06:41 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_94. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784669491.401
+datetime: 2026-07-22 03:01:31
+reason: Network_Contention
+run_id: 94
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784669491401
+phase_end_epoch_ms: 1784669801278",,Network_Contention,0.0,84.0,task_2
+"During the time range 2026-07-22 03:08:52 to 2026-07-22 03:18:57 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_95. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:08:55"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Contention_cu""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:08:55"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du1
+timestamp: 1784670232.187
+datetime: 2026-07-22 03:13:52
+reason: L1_Contention_du1
+run_id: 95
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784670232187
+phase_end_epoch_ms: 1784670537608",,"du1
+L1_Contention_du1
+2026-07-22 03:13:52",0.0,85.0,task_7
+"During the time range 2026-07-22 03:20:52 to 2026-07-22 03:31:00 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_96. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:21:03"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: du1
+timestamp: 1784670952.53
+datetime: 2026-07-22 03:25:52
+reason: MAC_Contention_du1
+run_id: 96
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784670952530
+phase_end_epoch_ms: 1784671260321",,2026-07-22 03:25:52,0.0,86.0,task_1
+"During the time range 2026-07-22 03:33:09 to 2026-07-22 03:43:18 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_97. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:33:09"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:33:09"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784671689.196
+datetime: 2026-07-22 03:38:09
+reason: PDCP_Contention_cu
+run_id: 97
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784671689196
+phase_end_epoch_ms: 1784671998468",,"2026-07-22 03:38:09
+PDCP_Contention_cu",0.0,87.0,task_4
+"During the time range 2026-07-22 03:45:25 to 2026-07-22 03:55:32 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_98. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du0
+timestamp: 1784672425.503
+datetime: 2026-07-22 03:50:25
+reason: QueueSize_Tuning_du0
+run_id: 98
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784672425503
+phase_end_epoch_ms: 1784672732815",,du0,0.0,88.0,task_3
+"During the time range 2026-07-22 03:57:41 to 2026-07-22 04:07:44 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_99. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:57:41"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: cu
+timestamp: 1784673161.076
+datetime: 2026-07-22 04:02:41
+reason: Memory_Leak_cu
+run_id: 99
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784673161076
+phase_end_epoch_ms: 1784673464633",,"2026-07-22 04:02:41
+Memory_Leak_cu",0.0,89.0,task_4
+"During the time range 2026-07-22 04:16:57 to 2026-07-22 04:27:01 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_101. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784674317.918
+datetime: 2026-07-22 04:21:57
+reason: PortFlap_CU_du0
+run_id: 101
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784674317918
+phase_end_epoch_ms: 1784674621369",CU-du0-link,PortFlap_CU_du0,0.5,90.0,task_6
+"During the time range 2026-07-22 04:29:15 to 2026-07-22 04:39:22 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_102. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 04:34:21"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784675055.389
+datetime: 2026-07-22 04:34:15
+reason: LinkFailure_CU_du0
+run_id: 102
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784675055389
+phase_end_epoch_ms: 1784675362052","CU-du0-link
+LinkFailure_CU_du0
+2026-07-22 04:34:15",,1.0,91.0,task_7
+"During the time range 2026-07-22 04:41:35 to 2026-07-22 04:51:43 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_103. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 04:46:43"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Infrastructure
+component: cu
+timestamp: 1784675795.343
+datetime: 2026-07-22 04:46:35
+reason: CPU_Contention_cu
+run_id: 103
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784675795343
+phase_end_epoch_ms: 1784676103240",cu,,1.0,92.0,task_3
+"During the time range 2026-07-22 04:53:50 to 2026-07-22 05:03:58 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_104. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784676530.838
+datetime: 2026-07-22 04:58:50
+reason: Memory_Contention_du0
+run_id: 104
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784676530838
+phase_end_epoch_ms: 1784676838266",,Memory_Contention_du0,0.0,93.0,task_2
+"During the time range 2026-07-22 05:06:05 to 2026-07-22 05:16:16 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_105. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784677265.393
+datetime: 2026-07-22 05:11:05
+reason: Network_Contention
+run_id: 105
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784677265393
+phase_end_epoch_ms: 1784677576292",,Network,0.0,94.0,task_3
+"During the time range 2026-07-22 05:18:24 to 2026-07-22 05:28:29 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_106. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784678004.455
+datetime: 2026-07-22 05:23:24
+reason: L1_Contention_du0
+run_id: 106
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784678004455
+phase_end_epoch_ms: 1784678309559",du0,,1.0,95.0,task_3
+"During the time range 2026-07-22 05:30:28 to 2026-07-22 05:40:35 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_107. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Application
+component: du1
+timestamp: 1784678728.727
+datetime: 2026-07-22 05:35:28
+reason: MAC_Contention_du1
+run_id: 107
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784678728727
+phase_end_epoch_ms: 1784679035911",,MAC_Contention_du1,0.0,96.0,task_2
+"During the time range 2026-07-22 05:42:46 to 2026-07-22 05:52:56 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_108. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784679466.526
+datetime: 2026-07-22 05:47:46
+reason: PDCP_Contention_cu
+run_id: 108
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784679466526
+phase_end_epoch_ms: 1784679776666",,"cu
+PDCP_Contention_cu",0.0,97.0,task_6
+"During the time range 2026-07-22 05:54:52 to 2026-07-22 06:05:00 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_109. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Application
+component: du1
+timestamp: 1784680192.851
+datetime: 2026-07-22 05:59:52
+reason: QueueSize_Tuning_du1
+run_id: 109
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784680192851
+phase_end_epoch_ms: 1784680500601",,du1,0.0,98.0,task_3
+"During the time range 2026-07-22 06:07:09 to 2026-07-22 06:17:12 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_110. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: du1
+timestamp: 1784680929.428
+datetime: 2026-07-22 06:12:09
+reason: Memory_Leak_du1
+run_id: 110
+category: Application
+anomaly_name: Memory_Leak_du1
+phase_start_epoch_ms: 1784680929428
+phase_end_epoch_ms: 1784681232757",,"du1
+Memory_Leak_du1",0.0,99.0,task_6
+"During the time range 2026-07-22 06:26:21 to 2026-07-22 06:36:28 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_112. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784682081.772
+datetime: 2026-07-22 06:31:21
+reason: PortFlap_CU_du0
+run_id: 112
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784682081772
+phase_end_epoch_ms: 1784682388555",,"CU-du0-link
+PortFlap_CU_du0",0.0,100.0,task_6
+"During the time range 2026-07-22 06:41:35 to 2026-07-22 06:51:37 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_113. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784682995.536
+datetime: 2026-07-22 06:46:35
+reason: LinkFailure_CU_du0
+run_id: 113
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784682995536
+phase_end_epoch_ms: 1784683297101","CU-du0-link
+LinkFailure_CU_du0",,1.0,101.0,task_6
+"During the time range 2026-07-22 06:54:45 to 2026-07-22 07:04:53 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_114. The root cause occurrence time is currently unknown. Please identify the root cause occurrence time.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 06:54:45"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 06:54:45"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784683786.008
+datetime: 2026-07-22 06:59:46
+reason: CPU_Contention_du1
+run_id: 114
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784683786008
+phase_end_epoch_ms: 1784684093131",,2026-07-22 06:59:46,0.0,102.0,task_1
+"During the time range 2026-07-22 07:07:04 to 2026-07-22 07:17:11 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_115. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:12:10"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784684524.291
+datetime: 2026-07-22 07:12:04
+reason: Memory_Contention_du0
+run_id: 115
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784684524291
+phase_end_epoch_ms: 1784684831157",2026-07-22 07:12:04,du0,0.5,103.0,task_5
+"During the time range 2026-07-22 07:19:25 to 2026-07-22 07:29:34 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_116. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784685265.034
+datetime: 2026-07-22 07:24:25
+reason: Network_Contention
+run_id: 116
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784685265034
+phase_end_epoch_ms: 1784685574746",,"Network
+Network_Contention",0.0,104.0,task_6
+"During the time range 2026-07-22 07:31:47 to 2026-07-22 07:41:53 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_117. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}","level: Application
+component: du1
+timestamp: 1784686007.038
+datetime: 2026-07-22 07:36:47
+reason: L1_Contention_du1
+run_id: 117
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784686007038
+phase_end_epoch_ms: 1784686313010",,L1_Contention_du1,0.0,105.0,task_2
+"During the time range 2026-07-22 07:43:48 to 2026-07-22 07:53:55 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_118. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:44:12"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:44:12"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Application
+component: du1
+timestamp: 1784686728.702
+datetime: 2026-07-22 07:48:48
+reason: MAC_Contention_du1
+run_id: 118
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784686728702
+phase_end_epoch_ms: 1784687035930",,"du1
+2026-07-22 07:48:48",0.0,106.0,task_5
+"During the time range 2026-07-22 07:56:05 to 2026-07-22 08:06:15 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_119. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784687465.941
+datetime: 2026-07-22 08:01:05
+reason: PDCP_Contention_cu
+run_id: 119
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784687465941
+phase_end_epoch_ms: 1784687775431",,"cu
+PDCP_Contention_cu",0.0,107.0,task_6
+"During the time range 2026-07-22 08:08:18 to 2026-07-22 08:18:24 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_120. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Contention_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784688198.872
+datetime: 2026-07-22 08:13:18
+reason: QueueSize_Tuning_du0
+run_id: 120
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784688198872
+phase_end_epoch_ms: 1784688504913",,QueueSize_Tuning_du0,0.0,108.0,task_2
+"During the time range 2026-07-22 08:20:33 to 2026-07-22 08:30:36 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_121. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    }
+}","level: Application
+component: cu
+timestamp: 1784688933.287
+datetime: 2026-07-22 08:25:33
+reason: Memory_Leak_cu
+run_id: 121
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784688933287
+phase_end_epoch_ms: 1784689236358",,Memory_Leak_cu,0.0,109.0,task_2
+"During the time range 2026-07-22 08:39:48 to 2026-07-22 08:49:50 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_123. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 08:39:48"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784690088.398
+datetime: 2026-07-22 08:44:48
+reason: PortFlap_CU_du0
+run_id: 123
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784690088398
+phase_end_epoch_ms: 1784690390557",,"PortFlap_CU_du0
+2026-07-22 08:44:48",0.0,110.0,task_4
+"During the time range 2026-07-22 08:51:57 to 2026-07-22 09:02:04 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_124. The root cause occurrence time, root cause reason are currently unknown. Please identify the root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 08:51:57"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784690817.178
+datetime: 2026-07-22 08:56:57
+reason: LinkFailure_CU_du0
+run_id: 124
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784690817178
+phase_end_epoch_ms: 1784691124054",,"LinkFailure_CU_du0
+2026-07-22 08:56:57",0.0,111.0,task_4
+"During the time range 2026-07-22 09:16:20 to 2026-07-22 09:26:28 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_126. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}","level: Infrastructure
+component: du1
+timestamp: 1784692280.732
+datetime: 2026-07-22 09:21:20
+reason: Memory_Contention_du1
+run_id: 126
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784692280732
+phase_end_epoch_ms: 1784692588508",,du1,0.0,112.0,task_3
+"During the time range 2026-07-22 09:28:39 to 2026-07-22 09:38:50 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_127. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:33:49"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}","level: Infrastructure
+component: Network
+timestamp: 1784693019.456
+datetime: 2026-07-22 09:33:39
+reason: Network_Contention
+run_id: 127
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784693019456
+phase_end_epoch_ms: 1784693330199",,"Network
+Network_Contention",0.0,113.0,task_6
+"During the time range 2026-07-22 09:40:53 to 2026-07-22 09:50:59 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_128. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:45:56"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Application
+component: du1
+timestamp: 1784693753.732
+datetime: 2026-07-22 09:45:53
+reason: L1_Contention_du1
+run_id: 128
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784693753732
+phase_end_epoch_ms: 1784694059293",,"du1
+L1_Contention_du1",0.0,114.0,task_6
+"During the time range 2026-07-22 09:52:40 to 2026-07-22 10:02:46 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_129. The root cause occurrence time, root cause component are currently unknown. Please identify the root cause occurrence time and root cause component.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:52:40"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}","level: Application
+component: du0
+timestamp: 1784694460.083
+datetime: 2026-07-22 09:57:40
+reason: MAC_Contention_du0
+run_id: 129
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784694460083
+phase_end_epoch_ms: 1784694766726",du0,2026-07-22 09:57:40,0.5,115.0,task_5
+"During the time range 2026-07-22 10:04:57 to 2026-07-22 10:15:07 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_130. The root cause reason is currently unknown. Please identify the root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}","level: Application
+component: cu
+timestamp: 1784695197.258
+datetime: 2026-07-22 10:09:57
+reason: PDCP_Contention_cu
+run_id: 130
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784695197258
+phase_end_epoch_ms: 1784695507290",,PDCP_Contention_cu,0.0,116.0,task_2
+"During the time range 2026-07-22 10:17:17 to 2026-07-22 10:27:23 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_131. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: du1
+timestamp: 1784695937.297
+datetime: 2026-07-22 10:22:17
+reason: QueueSize_Tuning_du1
+run_id: 131
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784695937297
+phase_end_epoch_ms: 1784696243899",,"du1
+QueueSize_Tuning_du1",0.0,117.0,task_6
+"During the time range 2026-07-22 10:29:35 to 2026-07-22 10:39:38 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_132. The root cause component is currently unknown. Please identify the root cause component.","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Application
+component: cu
+timestamp: 1784696675.452
+datetime: 2026-07-22 10:34:35
+reason: Memory_Leak_cu
+run_id: 132
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784696675452
+phase_end_epoch_ms: 1784696978655",,cu,0.0,118.0,task_3
+"During the time range 2026-07-22 10:48:46 to 2026-07-22 10:58:52 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_134. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 10:48:46"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 10:48:46"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}","level: Hardware
+component: CU-du0-link
+timestamp: 1784697826.792
+datetime: 2026-07-22 10:53:46
+reason: PortFlap_CU_du0
+run_id: 134
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784697826792
+phase_end_epoch_ms: 1784698132631",,"CU-du0-link
+2026-07-22 10:53:46
+PortFlap_CU_du0",0.0,119.0,task_7
+"During the time range 2026-07-22 11:00:56 to 2026-07-22 11:11:02 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_135. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 11:00:56"",
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784698556.452
+datetime: 2026-07-22 11:05:56
+reason: LinkFailure_CU_du1
+run_id: 135
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784698556452
+phase_end_epoch_ms: 1784698862873",,"CU-du1-link
+LinkFailure_CU_du1
+2026-07-22 11:05:56",0.0,120.0,task_7
+"During the time range 2026-07-22 11:17:33 to 2026-07-22 11:27:45 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_136. The root cause component, root cause occurrence time, root cause reason are currently unknown. Please identify the root cause component and root cause occurrence time and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 11:27:45"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Leak_cu""
+    }
+}","level: Infrastructure
+component: du0
+timestamp: 1784699553.275
+datetime: 2026-07-22 11:22:33
+reason: CPU_Contention_du0
+run_id: 136
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784699553275
+phase_end_epoch_ms: 1784699865846",,"CPU_Contention_du0
+du0
+2026-07-22 11:22:33",0.0,121.0,task_7

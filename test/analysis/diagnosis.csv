@@ -1,0 +1,1988 @@
+row_id,task_index,score,gt_reason,groundtruth,prediction,primary_reason,secondary_reasons,decisive_step,evidence_quote,explanation
+0,task_6,0.0,PortFlap_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784604776.972
+datetime: 2026-07-21 09:02:56
+reason: PortFlap_CU_du1
+run_id: 2
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784604776972
+phase_end_epoch_ms: 1784605078527","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",default_bias_guess,insufficient_exploration,8,the most plausible root cause is CPU_Contention_du0... derived from the high processing demands of DUs and the lack of alternative explanations,"The agent found no anomalies in metrics, logs, or topology data and defaulted to a generic CPU contention hypothesis for du0 without any supporting evidence. This reflects a fallback to a common diagnosis when telemetry lacked decisive signals, despite the actual fault (PortFlap_CU_du1) being unobserved in the data. The agent never examined the F1AP log for SCTP association IDs or compared midhaul traffic between DUs to detect the flap."
+1,task_1,0.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784605502.388
+datetime: 2026-07-21 09:15:02
+reason: LinkFailure_CU_du0
+run_id: 3
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784605502388
+phase_end_epoch_ms: 1784605808522","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 09:10:02"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,misread_evidence,7,The earliest anomaly in du1 occurred at 2026-07-21 09:10:02.026908... THREAD_L1_stats_voluntary_ctxsw: Actual value: 0.0 (P95 threshold: 1.0),"The agent identified a voluntary context switch drop in du1's metrics at 09:10:02 as the root cause, but this was a spurious signal unrelated to the actual LinkFailure_CU_du0 at 09:15:02. The investigation entirely skipped examining F1 interface telemetry (e.g., F1AP logs, SCTP associations, link status counters) which would have revealed the hardware link failure. The agent's focus on CPU metrics for du1 and failure to cross-check network-layer evidence constitutes insufficient exploration of the relevant telemetry domains."
+2,task_1,0.0,CPU_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784606223.313
+datetime: 2026-07-21 09:27:03
+reason: CPU_Contention_du0
+run_id: 4
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784606223313
+phase_end_epoch_ms: 1784606530865","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 09:22:03.341926"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,default_bias_guess;time_localization_error,14,The root cause occurrence time is 2026-07-21 09:22:03.341926... corresponding to the `ru_stime_us` spike at timestamp 1784605923341926 µs,"The agent identified a CU CPU spike as the root cause but failed to investigate DU0's metrics despite corrected column names and zero midhaul traffic. It assumed the CU anomaly without verifying DU0's CPU usage (e.g., `ru_utime_us` thresholds were 141k/89k, which could indicate contention if exceeded). The timezone adjustment revealed the anomaly at 09:22:03, but the ground truth occurred at 09:27:03, compounding the error. The agent never compared both DUs' CPU metrics or checked DU0 logs for contention evidence."
+3,task_6,1.0,Memory_Contention_cu,"level: Infrastructure
+component: cu
+timestamp: 1784606948.041
+datetime: 2026-07-21 09:39:08
+reason: Memory_Contention_cu
+run_id: 5
+category: Infrastructure
+anomaly_name: Memory_Contention_cu
+phase_start_epoch_ms: 1784606948041
+phase_end_epoch_ms: 1784607253315","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Contention_cu""
+    }
+}",correct_with_evidence,,2,"The CU's `mhtx_out_bytes` was 0 throughout the failure window... aligning with the earlier observation of zero midhaul traffic to DUs, indicating a complete blockage of user-plane data from the CU to DUs","The agent correctly identified the CU's `ru_oublock` metric spiking above its P95 threshold (from 8 to 16) as evidence of memory contention. It validated this by showing the CU's midhaul traffic (`mhtx_out_bytes`) dropped to zero during the failure window, confirming the memory issue blocked data processing. The SCTP endpoint removal in the F1AP log further supported that the CU's memory failure disrupted F1 links. The agent explicitly linked the memory anomaly to the downstream traffic collapse, forming a coherent evidence chain."
+4,task_3,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784607676.227
+datetime: 2026-07-21 09:51:16
+reason: Network_Contention
+run_id: 6
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784607676227
+phase_end_epoch_ms: 1784607986920","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",insufficient_exploration,anchoring_no_verification,3,DU1 shows slightly higher involuntary context switches... DU1 is more affected.,"The agent focused exclusively on CPU contention metrics (involuntary context switches, CPU migrations) to conclude DU1's L1_Contention, but ignored network-specific telemetry (e.g., midhaul traffic, F1 interface latency, or queue stats) that would have revealed the actual Network_Contention fault. The absence of F1AP log events for CU-du1-link (step 4) should have prompted deeper network analysis, but the agent prematurely anchored on CPU metrics as the root cause without validating network layer signals."
+5,task_2,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784608408.801
+datetime: 2026-07-21 10:03:28
+reason: L1_Contention_du1
+run_id: 7
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784608408801
+phase_end_epoch_ms: 1784608714390","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,3,The preprocessed metric data spans 11:15 AM to 11:27 AM UTC... the failure time window (04:28:28 to 04:38:34 UTC) falls 8.5 hours earlier,"The agent correctly identified the time zone conversion error but discovered that the metric and log data for the specified failure window (04:28:28-04:38:34 UTC) were entirely absent, as the actual data collection occurred 8.5 hours later (11:15-11:27 UTC). Without telemetry during the failure period, the agent had no evidence to analyze and defaulted to a generic 'Network_Contention' guess. The ground-truth L1_Contention_du1 could not be detected due to the lack of overlapping data."
+6,task_2,0.0,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784609124.756
+datetime: 2026-07-21 10:15:24
+reason: MAC_Contention_du0
+run_id: 8
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784609124756
+phase_end_epoch_ms: 1784609431813","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",insufficient_exploration,misread_evidence,7,mean mismatch of 90.16%... confirms a degraded/failed F1 link between CU and du0,"The agent observed a 90.16% mismatch between CU's `mhtx_in_bytes` and du0's `f1u_rlc_bytes` and attributed this to a LinkFailure_CU_du0, but the ground truth was MAC_Contention_du0. The agent failed to investigate du0's MAC-layer metrics (e.g., `mac_dl_bler`, `mac_rlc_bytes`) that would have confirmed MAC contention as the root cause. Instead, it prematurely concluded a link failure based on midhaul asymmetry without validating whether the mismatch stemmed from internal du0 processing delays (e.g., MAC/PHY backpressure) or actual link degradation. The absence of SCTP events in F1AP.log was correctly noted, but the agent did not correlate this with du0's RLC/MAC congestion metrics to distinguish between link failure and contention."
+7,task_2,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784609848.285
+datetime: 2026-07-21 10:27:28
+reason: PDCP_Contention_cu
+run_id: 9
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784609848285
+phase_end_epoch_ms: 1784610158356","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,default_bias_guess,2,"Key focus areas include CPU/memory spikes, midhaul traffic drops, or error counters (HARQ loss, CRC errors, queue drops)","The agent focused exclusively on CPU and GTP traffic metrics, concluding CPU_Contention_cu, but failed to examine PDCP-specific telemetry (e.g., buffer congestion, retransmission counters) that would have revealed the ground-truth PDCP_Contention_cu. The investigation never checked PDCP layer KPIs, which are critical for diagnosing application-level contention in the CU. The correlation between GTP traffic and CPU usage was misinterpreted as a system-level bottleneck rather than a PDCP layer issue."
+8,task_6,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784610581.07
+datetime: 2026-07-21 10:39:41
+reason: QueueSize_Tuning_du0
+run_id: 10
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784610581070
+phase_end_epoch_ms: 1784610888836","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""MAC_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration,8,The anomaly in DU1's `kpm_CARR.PRBUsageDl` [...] strongly indicates MAC contention [...] root cause is localized to DU1's MAC layer,"The agent misattributed the fault to DU1's MAC contention due to PRB overutilization, but the ground truth was DU0's QueueSize_Tuning. The agent failed to examine DU0's queue-related metrics (e.g., `tc_queue_length_avg`, which were missing in their analysis) and instead focused on DU1's PRB usage anomalies. The MAC state clearance event at 10:35:09 (within the failure window) was misinterpreted as evidence for DU1, while the actual fault onset at 10:39:41 in DU0 went undetected due to insufficient exploration of DU0-specific telemetry."
+9,task_1,0.0,Memory_Leak_du1,"level: Application
+component: du1
+timestamp: 1784611311.757
+datetime: 2026-07-21 10:51:51
+reason: Memory_Leak_du1
+run_id: 11
+category: Application
+anomaly_name: Memory_Leak_du1
+phase_start_epoch_ms: 1784611311757
+phase_end_epoch_ms: 1784611615152","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:16:50"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:16:50"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",wrong_localization,insufficient_exploration;misread_evidence,10,DU0/1's `f1u_rlc_bytes` remain zero throughout the run's actual duration... root cause component is CU-du0-link and CU-du1-link due to F1-U link failure,"The agent misattributed the zero F1 traffic to link failures at the start of the run (11:16:50) instead of investigating memory metrics for du1. It failed to examine `ru_maxrss_kb` (memory usage) in DU metrics, which would have shown a memory leak. The zero traffic was due to du1's memory exhaustion halting processing, not a link failure. The agent's conclusion relied on misinterpreting traffic patterns without validating memory state."
+10,task_6,0.5,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784612448.373
+datetime: 2026-07-21 11:10:48
+reason: PortFlap_CU_du0
+run_id: 13
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784612448373
+phase_end_epoch_ms: 1784612753750","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",sibling_confusion,insufficient_exploration,15,No critical SCTP events [...] suggests the CU-du0-link remained operational,"The agent correctly identified the CU-du0-link as the root cause component but misclassified the reason as LinkFailure instead of PortFlap. The zero `f1u_rlc_bytes` on DU0 and normal CU transmit metrics suggested packet loss, but the absence of SCTP shutdown events in F1AP logs led the agent to assume a permanent link failure rather than a transient port flap. PortFlap would cause intermittent drops without SCTP reconfiguration, which the agent failed to distinguish from a sustained failure. The investigation lacked checks for interface status changes or error counters that could have confirmed transient link instability."
+11,task_6,0.0,LinkFailure_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784613179.705
+datetime: 2026-07-21 11:22:59
+reason: LinkFailure_CU_du1
+run_id: 14
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784613179705
+phase_end_epoch_ms: 1784613487224","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration,13,The root cause component is `du1` and the root cause reason is `CPU_Contention_du1`. This is confirmed by sustained CPU thread anomalies in DU1...,"The agent identified CPU_Contention_du1 as the root cause based on DU1's thread-level anomalies (involuntary context switches and CPU migrations) but failed to investigate the CU-du1-link's status in logs or metrics. It misattributed the fault to DU1's CPU instead of the actual LinkFailure on the CU-du1-link, which was never examined. The agent's focus on DU1's thread metrics ignored the ground-truth link failure and did not cross-validate with F1AP.log for the correct link (CU-du1)."
+12,task_5,0.0,CPU_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784613900.547
+datetime: 2026-07-21 11:35:00
+reason: CPU_Contention_du1
+run_id: 15
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784613900547
+phase_end_epoch_ms: 1784614207806","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:30:00"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:30:00"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",insufficient_exploration,anchoring_no_verification,6,"Anomalies Observed: CU: 4 midhaul traffic spikes... DU0/1: 6 anomalies in f1u_rlc_bytes, dl_harq_total, ul_crc_loss","The agent focused on midhaul traffic and error counters, identifying anomalies in both DUs and the CU, but never examined CPU utilization metrics for du1 during the failure window. The ground-truth CPU_Contention_du1 was never investigated, as the agent only calculated static CPU thresholds (step 1) without time-series analysis. The conclusion of LinkFailure_CU_du0/1 relied on misinterpreted traffic anomalies without validating DU-side CPU metrics that would have revealed the true cause."
+13,task_1,0.0,Memory_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784614632.626
+datetime: 2026-07-21 11:47:12
+reason: Memory_Contention_du1
+run_id: 16
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784614632626
+phase_end_epoch_ms: 1784614939611","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:43:47"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,anchoring_no_verification,3,"For DU0 and DU1, compare mhrx_bytes, mhtx_bytes, dl_harq_fail, ul_crc_errors, ru_utime_us, and ru_maxrss_kb against their P95 thresholds","The agent focused exclusively on CPU metrics (voluntary context switches) in the CU after finding an anomaly in THREAD_GTPrx_84_voluntary_ctxsw, ignoring memory-related KPIs like ru_maxrss_kb for DUs which would have revealed the ground-truth Memory_Contention_du1. It never compared DU memory metrics against their P95 thresholds or checked for memory spikes during the failure window, despite the DUs having non-zero baseline thresholds for some metrics. The CU CPU contention hypothesis was accepted without cross-verifying against the actual fault's memory signature in du1."
+14,task_5,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784615366.823
+datetime: 2026-07-21 11:59:26
+reason: Network_Contention
+run_id: 17
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784615366823
+phase_end_epoch_ms: 1784615678402","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 11:54:37"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration;time_localization_error,7,The root cause is CPU_Contention_du1 with occurrence time 2026-07-21 11:54:37.582 IST. This conclusion follows Rule 1.4...,"The agent focused exclusively on CPU metrics and misattributed the fault to DU1's CPU contention, ignoring the ground-truth Network_Contention. It never examined midhaul/F1 interface telemetry (which were absent in metrics) or network-specific logs (e.g., F1AP.log for link congestion). The time localization error (11:54:37 vs. 11:59:26) and component misattribution (CPU vs. Network) stem from anchoring on CPU anomalies without cross-validating network signals. The absence of midhaul traffic analysis and F1 interface counters in the investigation trajectory confirms insufficient exploration of decisive telemetry."
+15,task_4,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784616106.372
+datetime: 2026-07-21 12:11:46
+reason: L1_Contention_du1
+run_id: 18
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784616106372
+phase_end_epoch_ms: 1784616411948","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:06:46"",
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,10,"CPU Metrics (ru_utime_us, ru_stime_us, THREAD_L1_stats_involuntary_ctxsw): All values remained within global P5–P95 thresholds","The agent exhaustively checked midhaul, network, and resource metrics but never examined L1-specific telemetry (e.g., `THREAD_L1_stats_involuntary_ctxsw`, `THREAD_L1_stats_cpu_migrations`) on DU1, which would have revealed the L1_Contention. Its final 'Network_Contention' guess reflects a default bias when no other signals were found, despite the ground truth being a DU-level L1 issue. The decisive failure was skipping L1-layer metrics entirely."
+16,task_1,0.0,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784616821.576
+datetime: 2026-07-21 12:23:41
+reason: MAC_Contention_du0
+run_id: 19
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784616821576
+phase_end_epoch_ms: 1784617128777","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:21:17"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}",wrong_localization,insufficient_exploration,10,assoc_id 541 maps to the CU-du0 F1 link per topology.jsonl,"The agent correctly identified an SCTP association instability (assoc_id 541) in the F1AP.log at 12:21:17 but incorrectly mapped this to the CU-du0-link based on an unverified assumption about association ID mapping. The ground truth MAC_Contention_du0 was never investigated through du0's MAC-layer metrics (e.g., f1u_mac_* counters) or thread contention analysis. The agent prioritized SCTP events over component-specific resource metrics, leading to a misattribution of the fault to the wrong component type (link vs. DU node)."
+17,task_1,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784617542.652
+datetime: 2026-07-21 12:35:42
+reason: PDCP_Contention_cu
+run_id: 20
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784617542652
+phase_end_epoch_ms: 1784617852393","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:30:42"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration,2,The earliest anomaly related to voluntary or involuntary context switch anomalies occurred in DU0... no conflicting traces or logs were reported to challenge this conclusion,"The agent focused exclusively on DU0/1 thread-level context switch anomalies and ignored CU-specific metrics like `ru_oublock` and `ru_nvcsw` that indicated I/O/resource contention in the CU. It assumed DU0's CPU contention was the root cause without verifying if CU anomalies were more severe or causally upstream. The PDCP_Contention_cu in the CU was never examined, leading to wrong_localization."
+18,task_1,1.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784618280.264
+datetime: 2026-07-21 12:48:00
+reason: QueueSize_Tuning_du0
+run_id: 21
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784618280264
+phase_end_epoch_ms: 1784618586716","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 12:48:30"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",correct_with_evidence,wrong_localization;sibling_confusion,8,First anomaly at 2026-07-21 07:13:05.235059 UTC (12:48:35 IST) for du_du0 and 12:48:30 IST for du_du1,"The agent correctly identified the root cause occurrence time (12:48:30) based on thread-level anomalies in `THREAD_L1_stats_involuntary_ctxsw` and `THREAD_L1_tx_thread_max_runtime_ns` for du1. While the ground truth was QueueSize_Tuning_du0 at 12:48:00, the evaluation score accepts the agent's answer as correct due to the time tolerance (30 seconds). The agent's conclusion of CPU_Contention_du1 was based on the only decisive signal found in the telemetry (thread-level metrics), even though it misattributed the fault type and component. The time localization was accurate enough to meet the task's criteria."
+19,task_2,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784618998.036
+datetime: 2026-07-21 12:59:58
+reason: Memory_Leak_cu
+run_id: 22
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784618998036
+phase_end_epoch_ms: 1784619301191","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",insufficient_exploration,execution_failure,4,The execution successfully calculated P95 thresholds for the **cu** component's KPIs but did not process **du0** and **du1**.,"The agent spent excessive time troubleshooting file-loading issues for DU metrics but never analyzed the CU's telemetry data for memory anomalies. The only successful processing (step 4) calculated CU thresholds but stopped short of comparing actual memory usage against them. The agent incorrectly inferred a link failure from DU file-access problems rather than examining the CU's memory metrics, which would have shown the leak. This constitutes a failure to explore the decisive telemetry (CU memory usage) required to identify the true root cause."
+20,task_2,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784620129.814
+datetime: 2026-07-21 13:18:49
+reason: PortFlap_CU_du0
+run_id: 24
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784620129814
+phase_end_epoch_ms: 1784620434428","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:18:55"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",misread_evidence,anchoring_no_verification,4,the absence of retransmission attempts or intermittent recovery in logs rules out PortFlap_CU_du0,"The agent misinterpreted the SCTP association failure as a sustained link failure rather than a port flap. The log entry 'removing endpoint' without retransmission attempts was taken as permanent failure, but port flaps can cause abrupt disconnections without retransmission if the link never re-established. The agent also failed to check for intermittent traffic patterns or recovery attempts in the timeline, anchoring on the initial hypothesis. The zero midhaul traffic confirmed a disruption but did not distinguish between sustained failure and a flap that never recovered."
+21,task_5,1.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784620852.781
+datetime: 2026-07-21 13:30:52
+reason: LinkFailure_CU_du0
+run_id: 25
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784620852781
+phase_end_epoch_ms: 1784621158787","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:30:57"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",correct_with_evidence,,5,"Received SCTP state 1 for assoc_id 541, removing endpoint","The agent identified the SCTP state change in the F1AP log at 13:30:57.786 as the decisive evidence for the link failure. While the assoc_id mapping to CU-du0-link was not explicitly confirmed (due to missing topology data and midhaul traffic logs), the systemic impact on DU0's CPU metrics (higher deviation from P95 thresholds) and the absence of alternative signals led to the correct conclusion. The time discrepancy (13:30:57 vs. ground truth 13:30:52) is within acceptable tolerance for this context."
+22,task_5,0.0,CPU_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784621580.886
+datetime: 2026-07-21 13:43:00
+reason: CPU_Contention_du1
+run_id: 26
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784621580886
+phase_end_epoch_ms: 1784621888110","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:38:26"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,time_localization_error,14,CU Component shows high CPU usage anomalies... breaches exceeding 50% of P95 thresholds... root cause component is the one with the most significant deviation,"The agent correctly adjusted the failure window from IST to UTC but localized the CPU contention to the CU instead of du1. It detected significant CU CPU anomalies (91.19% threshold breach) but ignored du1's marginal deviations (25.28%-25.56%) that were below the 50% threshold. The agent's decision to prioritize the CU's larger deviations over du1's smaller but ground-truth-aligned anomalies constitutes wrong_localization. The time_localization_error (13:38:26 vs 13:43:00) is secondary, as the agent's UTC alignment was correct but its anomaly detection window was still misaligned with the actual phase_start_epoch_ms."
+23,task_1,1.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784622311.407
+datetime: 2026-07-21 13:55:11
+reason: Memory_Contention_du0
+run_id: 27
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784622311407
+phase_end_epoch_ms: 1784622617867","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 13:55:17"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}",correct_with_evidence,,5,"At 13:55:17.146, an SCTP state change (SCTP state 1) was logged for assoc_id 721, triggering endpoint removal.","The agent correctly identified the PortFlap_CU_du0 event at 13:55:17 based on the SCTP state change in F1AP.log, which was the only actionable evidence found. The absence of metric anomalies and the log's explicit timestamp established the root cause time. The agent's conclusion aligns with the log's evidence, even though the ground truth listed a different fault type (Memory_Contention_du0), suggesting either a test case misalignment or the PortFlap being a secondary symptom."
+24,task_5,0.5,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784623042.171
+datetime: 2026-07-21 14:07:22
+reason: Network_Contention
+run_id: 28
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784623042171
+phase_end_epoch_ms: 1784623353535","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 14:07:33"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,sibling_confusion;insufficient_exploration,5,assuming assoc_id 541 maps to DU0 per OpenAirInterface conventions,"The agent correctly identified an SCTP association error in the CU's F1AP.log at 14:07:33 but assumed it mapped to CU-du0 without verifying DU-side logs or metrics. The ground truth was Network_Contention (a network resource overload), but the agent misclassified it as LinkFailure_CU_du0 (a connectivity issue). It also failed to explore network utilization metrics (e.g., bandwidth, latency) that would have revealed contention. The absence of DU-side telemetry forced an assumption about assoc_id 541's mapping, leading to incorrect localization."
+25,task_2,0.0,L1_Contention_du0,"level: Application
+component: du0
+timestamp: 1784623781.914
+datetime: 2026-07-21 14:19:41
+reason: L1_Contention_du0
+run_id: 29
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784623781914
+phase_end_epoch_ms: 1784624086971","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration;default_bias_guess,6,"DU1's CPU spike due to: (1) Earliest spike at 1784623549352097.0, (2) Higher mean utilization (122467.38 us), (3) Stronger correlation (-0.10)","The agent misattributed the fault to DU1's CPU contention despite the ground truth being L1_Contention on DU0. It focused solely on CPU metrics (ru_utime_us) and ignored L1-specific telemetry. The absence of MAC/PHY logs for DU0's L1 contention was critical, but the agent never checked L1 layer metrics (e.g., THREAD_L1_stats) or logs that would have revealed the true fault. Instead, it relied on CPU spikes and correlation with midhaul traffic, which are indirect and misleading in this case."
+26,task_6,0.5,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784624513.606
+datetime: 2026-07-21 14:31:53
+reason: MAC_Contention_du0
+run_id: 30
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784624513606
+phase_end_epoch_ms: 1784624819904","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",sibling_confusion,insufficient_exploration,4,"exhibited CPU usage anomalies... peaks at 156,098 µs... thread-specific metrics confirm scheduling contention","The agent correctly identified du0 as the root cause component but misattributed the fault to CPU contention instead of the ground-truth MAC contention. It fixated on CPU metrics (ru_utime_us, involuntary context switches) and thread scheduling anomalies, ignoring MAC-specific telemetry. The investigation never examined MAC layer KPIs (e.g., PRB allocation, HARQ errors) or MAC-related logs that would have revealed the true contention source. The agent's conclusion relied on CPU-centric thresholds without cross-validating against MAC layer signals, leading to sibling_confusion between CPU and MAC contention on the same component."
+27,task_6,0.5,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784625243.733
+datetime: 2026-07-21 14:44:03
+reason: PDCP_Contention_cu
+run_id: 31
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784625243733
+phase_end_epoch_ms: 1784625555194","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,misread_evidence,9,"THREAD_aurora_thr_proc_max_runtime_ns > 10ms) during the failure window, with no corresponding anomalies in DU or link metrics/logs.","The agent correctly identified the CU as the root cause component but misattributed the reason to CPU contention instead of the ground-truth PDCP contention. The investigation focused on thread starvation metrics (THREAD_aurora_thr_proc_max_runtime_ns) and concluded CPU contention without examining PDCP-specific telemetry (e.g., PDCP buffer metrics, encryption/compression KPIs, or PDCP layer logs). The agent failed to explore PDCP-related data despite the anomaly being application-layer, leading to an incorrect but plausible diagnosis. The thread starvation could be a symptom of PDCP contention, but the agent never validated this link."
+28,task_6,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784625981.023
+datetime: 2026-07-21 14:56:21
+reason: QueueSize_Tuning_du0
+run_id: 32
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784625981023
+phase_end_epoch_ms: 1784626288097","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",misread_evidence,anchoring_no_verification;insufficient_exploration,22,"The SCTP endpoint removal in `F1AP.log` directly confirms the F1-C link failure, which aligns with the observed CPU contention in `du0` as a secondary effect.",The agent misattributed an SCTP endpoint removal in F1AP.log to a CU-du0-link failure without verifying if the association ID (767) corresponded to du0. It ignored the ground-truth QueueSize_Tuning_du0 anomaly (which would have caused internal congestion leading to SCTP teardown) and failed to examine du0's queue metrics or thread scheduling data that could have explained the root cause. The agent's conclusion relied solely on the SCTP event without cross-checking DU-specific telemetry.
+29,task_5,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784626714.933
+datetime: 2026-07-21 15:08:34
+reason: Memory_Leak_cu
+run_id: 33
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784626714933
+phase_end_epoch_ms: 1784627017947","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:03:34"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:03:34"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",wrong_localization,insufficient_exploration,10,CU transmits data but DUs receive zero bytes (traffic symmetry mismatch),"The agent correctly identified traffic symmetry mismatches (CU tx > 0, DU rx = 0) but misattributed this to F1 link failures rather than the actual CU memory leak. The memory leak in the CU would impair its ability to process and forward data, causing the DUs to receive zero bytes. The agent never examined CU memory metrics (e.g., `ru_maxrss_kb`, `kpm_CARR.PRBUsageDl`) that would have revealed the memory leak. It prematurely concluded link failures based on traffic patterns without validating CU-side resource exhaustion."
+30,task_4,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784627862.728
+datetime: 2026-07-21 15:27:42
+reason: PortFlap_CU_du0
+run_id: 35
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784627862728
+phase_end_epoch_ms: 1784628167811","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:22:42"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,misread_evidence;anchoring_no_verification,4,The root cause is CPU_Contention_cu with occurrence time 2026-07-21 15:22:42... No further analysis required.,"The agent identified CU CPU contention as the root cause but failed to investigate the CU-du0-link's telemetry for port flap evidence. It observed an SCTP state change at 15:27:46 but assumed it was caused by CPU starvation without verifying link status. The CU-du0-link's port flap (ground truth) would have shown repeated F1 link up/down events in interface counters or F1AP logs, which the agent never checked. Its analysis focused solely on CPU metrics and accepted the first hypothesis without cross-validating against link-specific telemetry."
+31,task_2,0.0,LinkFailure_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784628597.378
+datetime: 2026-07-21 15:39:57
+reason: LinkFailure_CU_du1
+run_id: 36
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784628597378
+phase_end_epoch_ms: 1784628904006","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:40:02"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,5,Affected DU: du0 (based on first zero value in f1u_rlc_bytes),"The agent correctly identified the SCTP association teardown at 15:40:02 as the root cause but misattributed it to du0 due to flawed metric correlation. Both DUs' `f1u_rlc_bytes` dropped to zero at the failure time, but the agent arbitrarily prioritized `du0` as the affected component without validating which DU corresponds to `assoc_id 793`. The topology file lacked explicit `assoc_id`-to-DU mapping, and the agent failed to cross-check midhaul traffic patterns (e.g., `mhrx_in_bytes` on the CU vs. `f1u_rlc_*` on DUs) to resolve the ambiguity. This led to a wrong_localization error, as the ground truth was `CU-du1-link`."
+32,task_4,0.0,CPU_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784629318.337
+datetime: 2026-07-21 15:51:58
+reason: CPU_Contention_du1
+run_id: 37
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784629318337
+phase_end_epoch_ms: 1784629625586","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:46:58"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,anchoring_no_verification,2,CU has 11 anomalies (out of 23 samples) in midhaul/F1-layer or CPU/memory metrics... suggests potential CPU/memory contention or midhaul traffic disruptions,"The agent misattributed CPU contention to the CU due to insufficient exploration of DU telemetry. While the CU showed more anomalies, the agent failed to analyze DU-specific CPU metrics (e.g., `ru_utime_us` for du1) that would have revealed the ground-truth contention. Anchoring on the CU's midhaul anomalies and anomaly count led to premature conclusion without validating DU-side resource usage. The SCTP event at 15:52:05 was misinterpreted as a consequence rather than a symptom of the actual DU1 CPU issue."
+33,task_5,0.5,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784630046.47
+datetime: 2026-07-21 16:04:06
+reason: Memory_Contention_du0
+run_id: 38
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784630046470
+phase_end_epoch_ms: 1784630353778","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 15:59:06"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",sibling_confusion,insufficient_exploration;time_localization_error,5,"DU0's anomaly (likely due to `THREAD_L1_stats_involuntary_ctxsw` exceeding P95 thresholds, indicating CPU starvation","The agent correctly identified du0 as the root cause component but misattributed the fault to CPU contention instead of the ground-truth Memory_Contention. It relied solely on CPU-related metrics (involuntary context switches) without examining memory-specific telemetry (e.g., `ru_maxrss_kb`, `memory_used_bytes`). The time localization error (15:59:06 vs actual 16:04:06) further reduced accuracy. The failure to explore memory metrics and the sibling confusion between CPU/Memory contention on du0 are the primary issues."
+34,task_3,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784630786.837
+datetime: 2026-07-21 16:16:26
+reason: Network_Contention
+run_id: 39
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784630786837
+phase_end_epoch_ms: 1784631098259","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""MAC_Contention_du0""
+    }
+}",sibling_confusion,insufficient_exploration;misread_evidence,22,"All KPIs (`mac_dl_bo`, `f1u_rlc_bytes`, `THREAD_L1_stats_std_dev_ns`) in both `du0` and `du1` have zero values (mean, std, min, max all zero)","The agent incorrectly attributed the fault to MAC_Contention_du0 despite the ground truth being Network_Contention. The investigation repeatedly failed to validate network-layer metrics (e.g., midhaul/backhaul traffic, queue lengths) due to data corruption and misaligned timestamps. When forced to conclude, the agent defaulted to a MAC-layer hypothesis based on zero-valued metrics (`mac_dl_bo`, `f1u_rlc_bytes`), which were invalid due to telemetry corruption. A valid network contention diagnosis would require examining inter-node traffic or congestion metrics, which were never properly explored."
+35,task_7,0.0,L1_Contention_du0,"level: Application
+component: du0
+timestamp: 1784631516.838
+datetime: 2026-07-21 16:28:36
+reason: L1_Contention_du0
+run_id: 40
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784631516838
+phase_end_epoch_ms: 1784631822426","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:23:36"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",wrong_localization,anchoring_no_verification;insufficient_exploration,3,The top 10 faults... 1. `du1` - `THREAD_L1_tx_thread_total_runtime_ns`... 1.616 seconds... infinite deviation,"The agent identified CPU_Contention_du1 based on THREAD_ru_thread_max_runtime_ns anomalies in du1, but the ground truth was L1_Contention_du0. The agent never examined du0's L1-specific metrics (e.g., THREAD_L1_stats_cpu_id breaches mentioned in step 2) or compared the timing of du0's anomalies to the failure window. It anchored on the longest CPU contention in du1 (starting at 16:23:36) without verifying whether this predated the actual fault onset (16:28:36) or checking if du0's L1 metrics showed a more direct match to the ground-truth label."
+36,task_7,0.33,MAC_Contention_du1,"level: Application
+component: du1
+timestamp: 1784632236.157
+datetime: 2026-07-21 16:40:36
+reason: MAC_Contention_du1
+run_id: 41
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784632236157
+phase_end_epoch_ms: 1784632543042","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:40:41"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,insufficient_exploration,9,The root cause component is `CU-du0-link` or `CU-du1-link` (both failed due to a CU-side F1-C control plane issue),"The agent identified an SCTP association teardown in F1AP.log at 16:40:41 and attributed it to a CU-du0-link failure, but the ground truth was a MAC_Contention on du1. The agent never examined MAC layer telemetry (e.g., MAC.log, du1's MAC-specific KPIs) that would have revealed the contention. Instead, it focused on midhaul traffic and F1 link status, misinterpreting zero traffic as a link failure rather than a MAC layer processing issue. The SCTP teardown was a symptom of the MAC contention (blocked by du1's resource exhaustion) but the agent failed to trace this causal chain."
+37,task_1,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784632967.631
+datetime: 2026-07-21 16:52:47
+reason: PDCP_Contention_cu
+run_id: 42
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784632967631
+phase_end_epoch_ms: 1784633275946","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:51:14"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration,4,The root cause occurrence time is `1784632987456000` epoch microseconds... corresponds to L1_Contention_du0,"The agent identified a spike in du0's THREAD_L1_rx_thread_max_runtime_ns at 16:51:14 as the root cause, but the ground truth was PDCP_Contention in the CU at 16:52:47. The agent failed to examine CU-specific PDCP metrics (e.g., `pdcp_*` counters) that would have revealed the true contention. It localized the fault to DU0 based solely on L1 thread metrics, ignoring the CU's application-layer telemetry. This represents a wrong component attribution despite correctly identifying contention as the fault family."
+38,task_7,0.0,QueueSize_Tuning_du1,"level: Application
+component: du1
+timestamp: 1784633695.247
+datetime: 2026-07-21 17:04:55
+reason: QueueSize_Tuning_du1
+run_id: 43
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784633695247
+phase_end_epoch_ms: 1784634001876","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 16:59:55"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",insufficient_exploration,misread_evidence;wrong_localization,6,"The midhaul traffic mismatch (CU sends, DUs receive less) and absence of SCTP/GTP-U anomalies strongly indicate an F1 link failure","The agent focused on CU midhaul traffic drops and assumed an F1 link failure without examining DU-specific queue metrics that would have revealed the QueueSize_Tuning issue on du1. It never analyzed `tc_queue_length` or `tc_drops` on du1, which are critical for diagnosing queue-related anomalies. The absence of SCTP/GTP-U anomalies was misinterpreted as evidence for a link failure, ignoring the ground-truth DU-level queue tuning signal."
+39,task_7,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784634425.713
+datetime: 2026-07-21 17:17:05
+reason: Memory_Leak_cu
+run_id: 44
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784634425713
+phase_end_epoch_ms: 1784634728933","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:12:05"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,default_bias_guess,4,The root cause is CPU_Contention_du0... DU0's combination of CPU overuse and zero-threshold L1 thread violations,"The agent focused exclusively on CPU metrics and L1 thread anomalies in DUs, ignoring the CU's memory-related KPIs that would have revealed the memory leak. It never examined memory counters like `ru_maxrss_kb` or other memory-specific metrics in the CU's telemetry, which were explicitly listed in the P95 threshold results. The decision to prioritize CPU contention in DUs over unexplored CU memory signals constitutes insufficient exploration of the decisive telemetry."
+40,task_2,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784635567.398
+datetime: 2026-07-21 17:36:07
+reason: PortFlap_CU_du0
+run_id: 46
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784635567398
+phase_end_epoch_ms: 1784635872332","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:36:11"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",sibling_confusion,misread_evidence,25,"Received SCTP state 1 for assoc_id 541, removing endpoint","The agent correctly identified the CU-du0-link as the fault location via the SCTP state change log entry but misclassified the reason as LinkFailure instead of the ground-truth PortFlap. The log entry showed a single SCTP endpoint removal without evidence of reconnection attempts or multiple flap cycles, which are characteristic of PortFlap. The agent failed to distinguish between a permanent link failure (LinkFailure) and a transient flap (PortFlap) by not checking for subsequent reconnection attempts or multiple state transitions in the logs. This is a sibling_confusion error between two fault types on the same component."
+41,task_6,0.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784636297.404
+datetime: 2026-07-21 17:48:17
+reason: LinkFailure_CU_du0
+run_id: 47
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784636297404
+phase_end_epoch_ms: 1784636604459","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,misread_evidence;anchoring_no_verification,1,"This suggests CPU_Contention_du0 and CPU_Contention_du1 as potential root causes. Next, we need to validate midhaul/F1 interface metrics...","The agent focused exclusively on CPU contention in DUs due to initial global threshold observations, but never examined link status or F1 interface telemetry that would have revealed the CU-du0-link failure. Its trajectory was derailed by repeated topology parsing errors, which led it to incorrectly attribute CPU overuse to DU1. The decisive evidence (link failure on CU-du0) was never investigated, as the agent never checked F1AP logs, interface counters, or link status metrics during the failure window."
+42,task_4,0.0,CPU_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784637024.74
+datetime: 2026-07-21 18:00:24
+reason: CPU_Contention_du0
+run_id: 48
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784637024740
+phase_end_epoch_ms: 1784637332933","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 17:55:24"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",default_bias_guess,insufficient_exploration,3,"The analysis found no anomalies in the specified KPIs (mhtx_in_bytes, mhrx_out_bytes, ru_utime_us, ru_maxrss_kb, tc_queue_length) for the CU, DU0, and DU1 components during the time window","The agent failed to identify the CPU_Contention_du0 fault because it relied solely on threshold-based anomaly detection without examining CPU utilization trends or thread-specific CPU metrics that would have revealed contention. It concluded 'L1_Contention_du0' as a default guess when no other anomalies were found, despite the ground truth being a CPU issue. The investigation never explicitly checked CPU usage patterns or thread runtime distributions that would distinguish contention from normal operation."
+43,task_3,0.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784637757.664
+datetime: 2026-07-21 18:12:37
+reason: Memory_Contention_du0
+run_id: 49
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784637757664
+phase_end_epoch_ms: 1784638065205","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 18:12:45"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,sibling_confusion;insufficient_exploration,8,"Received SCTP state 3 for assoc_id 886, removing endpoint","The agent identified an SCTP endpoint removal at 18:12:45 but incorrectly attributed it to the CU-du0-link due to missing topology linkage. It failed to examine memory metrics for du0 (the actual root cause) and instead focused on midhaul traffic drops, which were absent. The assumption that assoc_id=886 mapped to CU-du0 was unverified, and the agent never checked resource metrics (like ru_maxrss_kb) that would have revealed du0's memory contention."
+44,task_3,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784638496.766
+datetime: 2026-07-21 18:24:56
+reason: Network_Contention
+run_id: 50
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784638496766
+phase_end_epoch_ms: 1784638807308","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",default_bias_guess,insufficient_exploration;ambiguous_telemetry,7,The root cause cannot be determined due to the absence of telemetry data... (but final answer still claims) CPU_Contention_du1,"The agent's investigation failed to analyze the correct time window (6:19 PM - 6:30 PM IST) as all telemetry data ended at 1:00 PM IST. With no metrics or logs available during the actual failure period, the agent defaulted to a generic CPU contention diagnosis for du1 without any supporting evidence. This reflects a fallback to a common default hypothesis when no data was available to validate alternatives."
+45,task_2,1.0,L1_Contention_du0,"level: Application
+component: du0
+timestamp: 1784639234.53
+datetime: 2026-07-21 18:37:14
+reason: L1_Contention_du0
+run_id: 51
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784639234530
+phase_end_epoch_ms: 1784639539761","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",correct_with_evidence,,3,"du0 had 3 log entries (e.g., L1/THREAD/irq/CPU anomalies) coinciding with metric violations","The agent correctly identified L1_Contention_du0 by cross-referencing metric anomalies (non-zero THREAD_L1_stats_irq_count) with log evidence showing 3 specific L1/THREAD/irq/CPU anomalies in du0 during the failure window. The decisive localization to du0 came from comparing its 3 log entries and pronounced metric violations against du1's single log entry, directly aligning with the ground-truth timestamp (18:37:14)."
+46,task_2,0.0,MAC_Contention_du1,"level: Application
+component: du1
+timestamp: 1784639951.081
+datetime: 2026-07-21 18:49:11
+reason: MAC_Contention_du1
+run_id: 52
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784639951081
+phase_end_epoch_ms: 1784640258467","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration,2,"Prioritize midhaul (mhtx/mhrx), F1 interface (f1u_rlc_*), CPU (ru_utime_us), and error counters (dl_crc_errors, tc_drop)","The agent focused exclusively on CU metrics (midhaul traffic, CPU time) and thread-level analysis, ignoring DU-specific telemetry entirely. The ground-truth MAC_Contention_du1 would have manifested in DU1's MAC-layer KPIs (e.g., scheduling delays, buffer overflows), but the agent never examined these metrics. Its hypothesis of CPU_Contention_cu was based on CU midhaul anomalies, which are unrelated to MAC contention. The investigation lacked any comparison of DU0/1 metrics or analysis of MAC-layer counters."
+47,task_7,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784640683.536
+datetime: 2026-07-21 19:01:23
+reason: PDCP_Contention_cu
+run_id: 53
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784640683536
+phase_end_epoch_ms: 1784640992123","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 18:56:23.401"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,wrong_localization,2,"Filter metric data for CU, DU0, and DU1 components [...] compare CPU user time [...] memory [...] against their precomputed P95 thresholds","The agent focused exclusively on CPU/memory metrics and thread-level contention in DUs, but never examined PDCP-layer metrics in the CU which would have revealed the ground-truth PDCP_Contention. It incorrectly assumed CPU contention in DU0 was the primary failure without correlating with CU-specific KPIs. The investigation lacked exploration of PDCP-related telemetry (e.g., PDCP buffer occupancy, scheduling metrics) in the CU component."
+48,task_3,1.0,QueueSize_Tuning_du1,"level: Application
+component: du1
+timestamp: 1784641403.924
+datetime: 2026-07-21 19:13:23
+reason: QueueSize_Tuning_du1
+run_id: 54
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784641403924
+phase_end_epoch_ms: 1784641710867","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",correct_with_evidence,,2,"DU1 shows the most critical anomalies: MAC/RLC layer issues with metrics like mac_prb_usage and mac_bler exceeding thresholds, indicating disrupted F1 interface traffic and poor resource allocation","The agent correctly localized the fault to du1 based on metric anomalies (e.g., PRB/MCS degradation, BLER increase) and ruled out logs as inconclusive. While the ground truth reason (QueueSize_Tuning) differs from the agent's answer (L1_Contention), the evaluation criteria only required identifying the component (du1), which was achieved with decisive metric evidence. The agent's reasoning chain in step 2 directly tied the anomalies to du1, fulfilling the task's success condition."
+49,task_1,0.0,Memory_Leak_du0,"level: Application
+component: du0
+timestamp: 1784642137.874
+datetime: 2026-07-21 19:25:37
+reason: Memory_Leak_du0
+run_id: 55
+category: Application
+anomaly_name: Memory_Leak_du0
+phase_start_epoch_ms: 1784642137874
+phase_end_epoch_ms: 1784642440827","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:20:40"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,wrong_localization;anchoring_no_verification,2,DU1 Critical Anomalies: ... THREAD_L1_tx_thread_involuntary_ctxsw True ...,"The agent identified DU1's involuntary context switches as the root cause but failed to investigate DU0's metrics for memory-related anomalies. It localized the fault to DU1 based on CPU contention metrics and an SCTP event, ignoring DU0's telemetry entirely. The decisive misstep was prioritizing DU1's CPU metrics over DU0's memory metrics, which would have shown the memory leak's progression. The agent never compared both DUs' memory usage trends or checked DU0's P5/P15 thresholds for memory saturation."
+50,task_1,0.0,PortFlap_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784643346.568
+datetime: 2026-07-21 19:45:46
+reason: PortFlap_CU_du1
+run_id: 57
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784643346568
+phase_end_epoch_ms: 1784643652317","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:40:46"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:40:46"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,misread_evidence;sibling_confusion,5,"no evidence of link failure (e.g., CU sends data but DUs don’t receive it)","The agent attributed the fault to CPU contention in both DUs based on synchronized CPU spikes and context switches in non-L1 threads, but missed the ground-truth PortFlap_CU_du1. It never examined F1AP/PHY logs for the specific CU-du1-link, nor checked SCTP association states or interface-specific counters (e.g., `f1u_link_status`) that would have revealed the port flap. The midhaul traffic alignment check (step 5) incorrectly ruled out link issues by assuming aligned traffic implies healthy links, ignoring asymmetric failures or transient flaps. The agent's focus on CPU metrics and thread-level data (steps 6-7) ignored network telemetry entirely."
+51,task_4,0.5,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784644080.317
+datetime: 2026-07-21 19:58:00
+reason: LinkFailure_CU_du0
+run_id: 58
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784644080317
+phase_end_epoch_ms: 1784644386744","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 19:58:05"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""MAC_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration;misread_evidence,3,assoc_id 959 (CU-du0-link) had an SCTP state change at 19:58:05.772 IST with no endpoint removal or port flaps,"The agent correctly identified the onset time (19:58:05) but misattributed the SCTP event in F1AP.log to MAC contention instead of LinkFailure. The log explicitly linked assoc_id 959 to the CU-du0-link, but the agent ignored this and focused on thread metrics. It never validated whether the SCTP event caused midhaul traffic drops or correlated with CU's backhaul anomalies, which would have pointed to the link failure. The decision to prioritize L1/MAC metrics over the direct link failure signal in F1AP.log constitutes wrong localization and insufficient exploration."
+52,task_1,0.0,CPU_Contention_cu,"level: Infrastructure
+component: cu
+timestamp: 1784644807.45
+datetime: 2026-07-21 20:10:07
+reason: CPU_Contention_cu
+run_id: 59
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784644807450
+phase_end_epoch_ms: 1784645116511","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:05:07"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:05:07"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",wrong_localization,anchoring_no_verification;insufficient_exploration,15,"The analysis of the SCTP event at 2026-07-21 20:05:07.141634... indicates a F1 link disruption... However, the topology.jsonl file does not contain an assoc_id field for any F1 link","The agent misattributed a CU CPU contention to F1 link failures by anchoring on midhaul traffic anomalies and SCTP events. It failed to examine CU CPU metrics (e.g., `ru_utime_us`, `ru_stime_us`) which showed 10-15x threshold violations during the actual fault window (20:10:07). Instead, it focused on midhaul traffic drops at 20:05:07 (a normal baseline fluctuation) and incorrectly mapped an SCTP endpoint removal to DU links, despite zero DU-side F1 counters. The root cause (CU CPU) was never investigated due to premature hypothesis fixation on link failures."
+53,task_3,0.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784645545.519
+datetime: 2026-07-21 20:22:25
+reason: Memory_Contention_du0
+run_id: 60
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784645545519
+phase_end_epoch_ms: 1784645852847","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration,5,Sustained anomaly detected (exceeded P95 threshold for ≥5 samples) in `ru_nvcsw` (voluntary context switches),"The agent misattributed the fault to the CU based on a sustained voluntary context switch anomaly in `ru_nvcsw`, but the ground truth was memory contention on du0. The agent never examined du0's memory-specific metrics (e.g., `ru_maxrss_kb`, `ru_minflt`), which would have shown the actual anomaly. Its focus on CU CPU metrics ignored the fact that the ground truth was a memory issue on a different component. The initial observation of 'many zero-valued P95 thresholds for backhaul metrics' on du0 was misinterpreted as normalcy, masking the memory contention signal."
+54,task_7,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784646275.723
+datetime: 2026-07-21 20:34:35
+reason: Network_Contention
+run_id: 61
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784646275723
+phase_end_epoch_ms: 1784646586347","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:29:35"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Leak_du0""
+    }
+}",insufficient_exploration,default_bias_guess,11,the most plausible root cause is a configuration error or unlogged transient issue... the root cause is likely a memory leak in one of the components,"The agent exhaustively analyzed metrics and logs but found no anomalies, leading it to default to a speculative memory leak diagnosis without evidence. The ground-truth Network_Contention was never investigated due to the agent's failure to examine network utilization or interface-level metrics (e.g., `eth0_rx_bytes`, `eth0_tx_bytes`, or `interface_utilization`), which would have shown contention during the fault window. The agent's fallback to a generic memory leak hypothesis reflects a lack of decisive telemetry exploration."
+55,task_3,0.0,L1_Contention_du0,"level: Application
+component: du0
+timestamp: 1784647016.029
+datetime: 2026-07-21 20:46:56
+reason: L1_Contention_du0
+run_id: 62
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784647016029
+phase_end_epoch_ms: 1784647321410","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""QueueSize_Tuning_du1""
+    }
+}",misread_evidence,insufficient_exploration,8,"The topology file explicitly shows missing `mtu` and `queue_size` for both F1 links, directly correlating with user-plane traffic degradation","The agent misattributed the root cause to queue size tuning based on missing MTU/queue_size parameters in the topology file, despite the ground truth being L1_Contention_du0. It failed to examine du0-specific L1 metrics (e.g., CPU, memory contention) that would have revealed the true cause. The topology analysis was a red herring, as missing parameters do not directly cause contention. The agent also misread midhaul traffic patterns, assuming configuration issues without validating against actual performance metrics."
+56,task_5,0.5,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784647749.453
+datetime: 2026-07-21 20:59:09
+reason: MAC_Contention_du0
+run_id: 63
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784647749453
+phase_end_epoch_ms: 1784648056733","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 20:59:14"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,anchoring_no_verification;insufficient_exploration,8,"assoc_id=541 must be cross-validated with topology.jsonl to confirm it maps to CU-du0-link, but the log message alone is sufficient to attribute the root cause to this component","The agent correctly identified an SCTP state change in F1AP.log at 20:59:14.551 IST but incorrectly attributed it to the CU-du0-link without verifying the assoc_id mapping. The ground truth indicates the fault was MAC_Contention on du0 itself, not a link failure. The agent failed to cross-check the assoc_id against topology.jsonl or investigate du0-specific MAC metrics (e.g., `mac_dl_bler`, `mac_ul_prb`) that would have revealed the true contention. Anchoring on the SCTP event and skipping verification of component mapping led to wrong localization."
+57,task_3,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784648481.44
+datetime: 2026-07-21 21:11:21
+reason: PDCP_Contention_cu
+run_id: 64
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784648481440
+phase_end_epoch_ms: 1784648791491","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess;anchoring_no_verification,3,DU0 and DU1 metrics show thread anomalies... no drops detected (all `f1u_rlc_*` values ≥ P5 threshold),"The agent focused exclusively on DU thread anomalies and CPU metrics, ignoring the CU's PDCP-specific KPIs (e.g., `kpm_DRB.UEThpDl/Ul`, `kpm_RRC.ConnNumber`) that would have revealed the application-layer contention. It never validated whether CU's resource usage (CPU/memory) or PDCP throughput metrics showed anomalies during the failure window. The absence of CU telemetry analysis constitutes insufficient exploration of the root cause component."
+58,task_7,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784649212.903
+datetime: 2026-07-21 21:23:32
+reason: QueueSize_Tuning_du0
+run_id: 65
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784649212903
+phase_end_epoch_ms: 1784649519841","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 21:18:32"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}",default_bias_guess,insufficient_exploration,9,default to the first DU (du0) as the root cause component... absence of telemetry for F1 link state transitions,"The agent exhausted all available telemetry without finding anomalies but defaulted to a generic PortFlap_CU_du0 diagnosis due to missing F1 link telemetry, despite the ground truth being a QueueSize_Tuning_du0 issue. It never examined queue-specific metrics (e.g., `tc_queue_len_*`) on du0 during the failure window, which would have revealed the actual root cause. The final answer was a guess based on absence of evidence rather than evidence-based analysis."
+59,task_1,1.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784649941.24
+datetime: 2026-07-21 21:35:41
+reason: Memory_Leak_cu
+run_id: 66
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784649941240
+phase_end_epoch_ms: 1784650244498","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 21:35:44"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}",correct_with_evidence,wrong_localization,3,"2026-07-21 21:35:44.384 IST: `Received SCTP state 1 for assoc_id 541, removing endpoint`","The agent correctly identified the root cause occurrence time (2026-07-21 21:35:44) based on the decisive log entry in F1AP.log at 21:35:44.384 IST, which explicitly documented an SCTP association disruption. While the component and reason were incorrect (PortFlap_CU_du0 vs. Memory_Leak_cu), the task required only the occurrence time, which aligned with the ground truth within acceptable tolerance. The agent's evidence chain for the time was sound."
+60,task_6,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784651085.494
+datetime: 2026-07-21 21:54:45
+reason: PortFlap_CU_du0
+run_id: 68
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784651085494
+phase_end_epoch_ms: 1784651385770","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",misread_evidence,wrong_localization;insufficient_exploration,3,"No repeated disconnections, endpoint removals, or recurring SCTP state transitions were observed for any association ID. This suggests no sustained F1 link instability","The agent identified the correct timestamp (21:54:45) via the SCTP State 1 event but misclassified it as a permanent LinkFailure rather than a transient PortFlap. It failed to recognize that a single SCTP state change without reconnection attempts is more indicative of a port flap (temporary link disruption) than a sustained failure. The midhaul traffic asymmetry was misinterpreted as dual-link failure rather than a single-link issue, and the agent never validated which specific F1 link (du0 vs du1) was affected by the SCTP event. The absence of repeated SCTP events was incorrectly taken as evidence of a permanent failure, ignoring that port flaps may not trigger reconnection attempts if the association is lost and not restored."
+61,task_4,0.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784651812.016
+datetime: 2026-07-21 22:06:52
+reason: LinkFailure_CU_du0
+run_id: 69
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784651812016
+phase_end_epoch_ms: 1784652118407","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,misread_evidence;default_bias_guess,3,The analysis of the F1AP.log during the failure time range [...] found no SCTP events [...] suggests the CU-DU F1 control plane link remained stable,"The agent focused exclusively on CPU thread runtime metrics and failed to examine telemetry that would have revealed the link failure. It checked F1AP logs for SCTP events but missed the absence of expected traffic on the CU-du0 link (e.g., interface down events, zero midhaul traffic counters). The CU's 'midhaul traffic degradation' was misinterpreted as CPU contention rather than a physical link outage. The investigation never compared CU-du0 vs CU-du1 traffic metrics to detect asymmetry, nor checked interface status logs."
+62,task_5,0.0,CPU_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784652539.718
+datetime: 2026-07-21 22:18:59
+reason: CPU_Contention_du1
+run_id: 70
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784652539718
+phase_end_epoch_ms: 1784652847707","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:13:59"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",insufficient_exploration,wrong_localization;misread_evidence,4,"DU0's `THREAD_L1_stats_irq_count`, `involuntary_ctxsw`, and `cpu_migrations` all exceeded P95 thresholds simultaneously at row 6605","The agent misattributed CPU contention to DU0 based on thread statistics (irq_count, involuntary_ctxsw) while ignoring actual CPU usage metrics. It failed to check DU1's CPU utilization (e.g., `ru_utime_us`, `ru_maxrss_kb`) which would have shown the ground-truth CPU_Contention_du1. The agent's focus on thread anomalies (incorrectly labeled as 'L1_Contention') and lack of CPU-specific metric analysis led to wrong_localization. The decisive step was assuming severity from thread count rather than examining CPU saturation."
+63,task_1,0.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784653275.217
+datetime: 2026-07-21 22:31:15
+reason: Memory_Contention_du0
+run_id: 71
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784653275217
+phase_end_epoch_ms: 1784653582494","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:26:15"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration;default_bias_guess,6,The earliest CPU anomaly occurred at 2026-07-21 22:26:15 IST... confirms CPU contention as the primary failure driver,"The agent misattributed the fault to CPU contention in the CU despite the ground truth being memory contention in du0. It focused exclusively on CPU metrics (involuntary context switches, ru_utime_us) and ignored memory-related KPIs (e.g., ru_maxrss_kb) that would have revealed the true issue. The absence of network/log evidence for alternatives was misinterpreted as confirmation of CPU contention, without verifying memory telemetry. The earliest CPU anomaly at 22:26:15 was incorrectly assumed to be the root cause, while the actual memory contention onset at 22:31:15 in du0 went undetected due to insufficient exploration of memory metrics."
+64,task_4,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784654030.062
+datetime: 2026-07-21 22:43:50
+reason: Network_Contention
+run_id: 72
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784654030062
+phase_end_epoch_ms: 1784654341170","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:38:50"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:38:50"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""Memory_Contention_du1""
+    }
+}",insufficient_exploration,misread_evidence,7,"mhtx_in_bytes: 0.0 for du0/du1, but no network link analysis was performed","The agent identified memory contention in both DUs based on exceeding memory limits and zero midhaul traffic, but failed to investigate network telemetry (e.g., F1AP.log for link failures, midhaul counters between CU and DUs) that could have revealed the ground-truth Network_Contention. The zero midhaul traffic was misattributed to memory issues rather than exploring network disruptions. The agent stopped at memory metrics without verifying network health."
+65,task_1,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784654758.711
+datetime: 2026-07-21 22:55:58
+reason: L1_Contention_du1
+run_id: 73
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784654758711
+phase_end_epoch_ms: 1784655064489","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 22:51:08"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration,3,"The root cause occurrence time is 2026-07-21 22:51:08 IST, as this is the earliest timestamp in the CU's filtered metrics where mhtx_in_bytes... exceeded thresholds","The agent misattributed the root cause to the CU's CPU contention despite the ground truth being L1 contention in du1. It focused on CU's midhaul traffic and CPU anomalies (338+ breaches) but ignored the DU's THREAD_L1_stats metrics (e.g., involuntary context switches in DU0) that would have pointed to L1 layer issues. The CU anomalies were downstream effects, not the root cause. The agent never compared both DUs' L1 telemetry or validated if the CU's anomalies originated from DU-level L1 contention."
+66,task_5,0.0,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784655479.615
+datetime: 2026-07-21 23:07:59
+reason: MAC_Contention_du0
+run_id: 74
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784655479615
+phase_end_epoch_ms: 1784655786717","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 23:02:59"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""MAC_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration,7,"Since no other components (cu, du0) showed significant CPU or scheduling anomalies...","The agent localized MAC_Contention to du1 based on RLC anomalies and THREAD_MAC CPU contention metrics in du1's data, but failed to compare du0's metrics. The ground truth was MAC_Contention in du0, which the agent never investigated. By focusing exclusively on du1's anomalies and not cross-checking du0's THREAD_MAC or RLC metrics, the agent committed wrong_localization and insufficient_exploration."
+67,task_3,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784656215.049
+datetime: 2026-07-21 23:20:15
+reason: PDCP_Contention_cu
+run_id: 75
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784656215049
+phase_end_epoch_ms: 1784656524984","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration,4,The elevated L1 thread runtime and midhaul traffic suggest L1_Contention_du0...,"The agent misattributed the fault to DU0's L1 layer despite the ground truth being CU's PDCP contention. It focused on DU0's thread runtime and midhaul traffic anomalies but ignored the CU's `kpm_RRC.ConnNumber` surge and failed to examine CU-specific PDCP metrics (e.g., `pdcp_buffer_usage`, `pdcp_throughput`). The absence of SCTP events correctly ruled out link issues, but the agent never validated whether the CU's application-layer metrics (like PDCP queue depth) showed contention. This lack of exploration of the CU's telemetry led to wrong localization."
+68,task_7,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784656944.679
+datetime: 2026-07-21 23:32:24
+reason: QueueSize_Tuning_du0
+run_id: 76
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784656944679
+phase_end_epoch_ms: 1784657252063","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 23:27:34"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,3,"The first anomalies occurred at 23:27:34.207 IST in CU thread metrics... No protocol-layer logs correlate with the initial CPU anomalies, confirming this is a system-level CPU starvation issue.","The agent focused exclusively on CU metrics (backhaul traffic, thread context switches) and attributed the earliest anomalies to CPU contention, ignoring the DUs entirely. It never examined du0's QueueSize-related KPIs or compared DU metrics against thresholds, which would have revealed the ground-truth anomaly. The CU anomalies were secondary effects of the DU's queue tuning issue but were misinterpreted as primary causes due to insufficient exploration of the DUs' telemetry."
+69,task_6,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784657677.573
+datetime: 2026-07-21 23:44:37
+reason: Memory_Leak_cu
+run_id: 77
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784657677573
+phase_end_epoch_ms: 1784657981499","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",insufficient_exploration,default_bias_guess,6,The CU's midhaul traffic anomalies and the SCTP endpoint removal in F1AP.log confirm a F1 link failure,"The agent focused on network anomalies (SCTP state change, midhaul traffic drops) and incorrectly attributed them to a link failure despite no evidence of DU-side disruptions. It never examined CU memory metrics (e.g., `memory_used`, `heap_growth`) that would have revealed the memory leak. The absence of DU data was misinterpreted as link failure rather than a symptom of CU unresponsiveness. The agent's failure to check memory telemetry constitutes insufficient exploration."
+70,task_5,1.0,PortFlap_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784658839.382
+datetime: 2026-07-22 00:03:59
+reason: PortFlap_CU_du1
+run_id: 79
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784658839382
+phase_end_epoch_ms: 1784659144612","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:04:04"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""PortFlap_CU_du1""
+    }
+}",correct_with_evidence,time_localization_error,4,assoc_id 1121 removed at 2026-07-22 00:04:04.127,"The agent correctly identified the CU-du1-link PortFlap by correlating the SCTP association removal at 00:04:04 with downstream DU1 anomalies (thread migrations, SINR degradation). The log evidence explicitly showed the SCTP event at 00:04:04.127, which the agent rounded to 00:04:04. While the ground truth timestamp was 00:03:59, the 5-second discrepancy may fall within acceptable time localization tolerance. The agent's conclusion was directly supported by the F1AP log analysis in step 4."
+71,task_7,0.0,LinkFailure_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784659580.116
+datetime: 2026-07-22 00:16:20
+reason: LinkFailure_CU_du1
+run_id: 80
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784659580116
+phase_end_epoch_ms: 1784659886283","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:11:20"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,5,"DU0's CPU contention is confirmed via elevated `ru_utime_us` and `ru_nivcsw` metrics exceeding P95 thresholds, while DU1 shows no anomalies","The agent correctly identified CPU contention in DU0 via elevated `ru_utime_us` and `ru_nivcsw` metrics but failed to investigate the CU-du1-link's F1 interface telemetry. It never compared midhaul/F1 traffic anomalies between DUs to isolate the link failure, nor checked F1AP.log for SCTP disruptions on the affected link. The absence of DU1 anomalies and lack of cross-DU comparison should have prompted deeper investigation into the CU-du1-link, but the agent prematurely concluded DU0's CPU issue as the root cause."
+72,task_3,0.0,CPU_Contention_cu,"level: Infrastructure
+component: cu
+timestamp: 1784660307.0
+datetime: 2026-07-22 00:28:26
+reason: CPU_Contention_cu
+run_id: 81
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784660307000
+phase_end_epoch_ms: 1784660615407","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,default_bias_guess,12,"The root cause component is `CPU_Contention_du0` due to recurring CPU usage spikes exceeding normal patterns during the failure window, despite staying within container limits.","The agent focused on DU0's CPU spikes as the root cause but never validated whether the CU's CPU metrics exceeded its own thresholds or showed contention patterns. While DU0 had more CPU anomalies, the agent failed to examine the CU's CPU usage (e.g., user/system time, voluntary/involuntary context switches) or logs for evidence of CPU contention. The decision to attribute the fault to DU0 was based solely on relative spike frequency without comparing against the CU's actual resource limits or telemetry. This constitutes insufficient exploration of the CU component."
+73,task_5,0.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784661032.908
+datetime: 2026-07-22 00:40:32
+reason: Memory_Contention_du0
+run_id: 82
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784661032908
+phase_end_epoch_ms: 1784661340330","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:35:47"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 00:35:47"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",insufficient_exploration,wrong_localization;anchoring_no_verification,8,"CU transmitted 297,831 bytes via `mhtx_out_bytes`. DU0 and DU1 received 0 bytes (`mhrx_in_bytes` = 0 for both).","The agent misattributed the root cause to F1 link failures based on midhaul traffic symmetry analysis, but the actual fault was Memory_Contention on du0. The investigation entirely overlooked memory-related KPIs for the DUs (e.g., memory utilization, swap usage) and focused exclusively on network metrics. The zero midhaul traffic on DUs was misinterpreted as link failure rather than a downstream effect of du0's memory exhaustion blocking processing. The agent never examined DU memory metrics, which would have shown the decisive signal."
+74,task_2,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784661771.464
+datetime: 2026-07-22 00:52:51
+reason: Network_Contention
+run_id: 83
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784661771464
+phase_end_epoch_ms: 1784662083043","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess;misread_evidence,5,The extreme metric deviation in DU1's `THREAD_L1_stats_cpu_migrations` (100% threshold breach) indicates a CPU contention issue... aligns with the `L1_Contention_du1` root cause reason,"The agent focused exclusively on CPU-related metrics (THREAD_L1_stats_cpu_migrations) and failed to examine network traffic metrics or F1 link telemetry that would have revealed the Network_Contention ground truth. It assumed CPU contention in DU1 based on a single anomalous metric without validating network-level evidence (e.g., backhaul traffic drops, F1 link congestion counters). The absence of log evidence for L1 issues was ignored, and no cross-component network analysis was performed."
+75,task_6,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784662501.396
+datetime: 2026-07-22 01:05:01
+reason: L1_Contention_du1
+run_id: 84
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784662501396
+phase_end_epoch_ms: 1784662806854","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,9,"The root cause component is **Network**, and the root cause reason is **Network_Contention**. This conclusion is based on the absence of component-specific anomalies...","The agent exhaustively checked metrics, logs, and link states but never examined L1-specific telemetry (e.g., `THREAD_L1_stats_cpu_usage`, `L1_queue_length`, or `L1_drop_rate`) that would have revealed the ground-truth L1_Contention_du1. Its final answer defaulted to Network_Contention without any supporting evidence, relying on absence of data rather than discriminative analysis. A well-executed investigation could have identified the L1 contention signal if the agent had prioritized application-layer metrics for DU1."
+76,task_1,0.0,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784663221.809
+datetime: 2026-07-22 01:17:01
+reason: MAC_Contention_du0
+run_id: 85
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784663221809
+phase_end_epoch_ms: 1784663529038","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:12:14"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,default_bias_guess,15,"DU metrics show zero values for midhaul traffic and CPU usage, likely due to data collection issues or misconfigured metrics","The agent focused exclusively on CPU metrics and midhaul traffic anomalies in the CU, concluding CPU_Contention_cu despite the ground truth being MAC_Contention_du0. It never examined DU-specific MAC layer telemetry (e.g., `mac_dl_prb` or `mac_ul_tbs` metrics) or logs that would have revealed the actual contention. The zero midhaul traffic in DUs was misattributed to data collection issues rather than a root cause. The CU's CPU spikes were a downstream effect, but the agent failed to investigate the DUs' application-layer metrics where the fault originated."
+77,task_1,1.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784663956.676
+datetime: 2026-07-22 01:29:16
+reason: PDCP_Contention_cu
+run_id: 86
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784663956676
+phase_end_epoch_ms: 1784664265653","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:29:19"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",correct_with_evidence,,6,"2026-07-22 01:29:19.152 | 1066846.857661 [F1AP]   W Received unsuccessful result for SCTP association (1), instance 0, cnx_id 0, retrying...",The agent correctly identified the root cause occurrence time (2026-07-22 01:29:19) by locating an SCTP association failure in the F1AP.log at that timestamp. This aligns with the ground-truth time (2026-07-22 01:29:16) within acceptable tolerance. The component and reason misclassification (CU-du1-link/LinkFailure vs. CU/PDCP_Contention) does not affect the score because the task explicitly required only the occurrence time. The decisive evidence was the log entry confirming the SCTP failure at the correct time.
+78,task_6,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784664693.749
+datetime: 2026-07-22 01:41:33
+reason: QueueSize_Tuning_du0
+run_id: 87
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784664693749
+phase_end_epoch_ms: 1784665000624","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,11,"Based on the elimination of all internal component failures and the absence of telemetry for external network issues, the root cause is most likely Network_Contention","The agent exhaustively ruled out all internal component anomalies but failed to examine DU-specific application-layer queue metrics (e.g., `queue_size_*` in `du0_df`) that would have revealed the QueueSize_Tuning issue. Its final attribution to Network_Contention was a default guess based on elimination rather than evidence. The ground-truth anomaly (QueueSize_Tuning_du0) was never checked due to insufficient exploration of DU application metrics."
+79,task_2,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784665425.018
+datetime: 2026-07-22 01:53:45
+reason: Memory_Leak_cu
+run_id: 88
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784665425018
+phase_end_epoch_ms: 1784665727976","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 01:53:47"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU-du0""
+    }
+}",insufficient_exploration,anchoring_no_verification,8,midhaul traffic metrics for the CU and DUs around 2026-07-22 01:53:47 show sudden drops in `mhrx_bytes` and `mhtx_bytes` for **du0**,"The agent focused on F1 link anomalies and midhaul traffic drops in du0, concluding PortFlap_CU-du0, but entirely ignored memory-related KPIs in the CU's metric data. The ground-truth Memory_Leak_cu would have manifested as a monotonic increase in memory usage metrics (e.g., 'memory_used_bytes') in the CU's CSV file, which the agent never analyzed. The investigation never checked memory metrics for the CU, a critical omission given the failure's timestamp (01:53:45) and component (cu)."
+80,task_7,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784666579.245
+datetime: 2026-07-22 02:12:59
+reason: PortFlap_CU_du0
+run_id: 90
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784666579245
+phase_end_epoch_ms: 1784666884605","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:14:39"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",wrong_localization,insufficient_exploration,6,"The root cause component is `du1`, the root cause occurrence time is `1784666879494209 µs`... based on `du1`'s `sinr_min` metric showing infinite deviation","The agent localized the fault to du1 based on its sinr_min metric anomaly but failed to examine the CU-du0-link's telemetry (e.g., F1AP.log, midhaul traffic counters) where the actual PortFlap occurred. It assumed L1_Contention in du1 without verifying link-layer events or comparing both DUs' connectivity metrics. The decisive sinr_min deviation in du1 was misattributed as a CPU/PHY issue rather than a downstream effect of the CU-du0-link failure."
+81,task_3,0.0,LinkFailure_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784667302.163
+datetime: 2026-07-22 02:25:02
+reason: LinkFailure_CU_du1
+run_id: 91
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784667302163
+phase_end_epoch_ms: 1784667609010","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,4,The `topology/topology.jsonl` file does **not contain SCTP association IDs (assoc_id)** for the CU-du0 or CU-du1 F1 links,"The agent identified an SCTP endpoint removal (assoc_id 1209) in Step 3 but failed to map it to the correct DU due to missing topology data (Step 4). Without assoc_id mapping, it compared DU metrics in Step 5 but found missing telemetry (tc_* metrics), forcing it to default to 'Network_Contention' despite the ground truth being a specific link failure (CU-du1). The investigation never examined F1AP logs for additional clues or compared midhaul traffic between DUs to infer the affected link."
+82,task_1,0.0,CPU_Contention_cu,"level: Infrastructure
+component: cu
+timestamp: 1784668033.388
+datetime: 2026-07-22 02:37:13
+reason: CPU_Contention_cu
+run_id: 92
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784668033388
+phase_end_epoch_ms: 1784668341682","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:32:13"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,wrong_localization,3,cu: No anomalies detected (all priority KPIs remained within P95 thresholds),"The agent identified the earliest metric anomaly in du0 but failed to examine the CU's telemetry for CPU contention signals. It assumed the first anomaly at the DU level (du0) was the root cause without verifying CU metrics, which were the actual source of the ground-truth CPU_Contention_cu. The investigation never checked CU-specific KPIs like CPU utilization or thread contention metrics that would have revealed the true fault."
+83,task_7,0.0,Memory_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784668747.13
+datetime: 2026-07-22 02:49:07
+reason: Memory_Contention_du1
+run_id: 93
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784668747130
+phase_end_epoch_ms: 1784669053967","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 02:44:07"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,3,Top Faults by Severity 1. `cu` (PDCP Layer Overload): Duration: 29.1 seconds (longest sustained fault),"The agent focused on the CU's PDCP layer anomalies as the most severe, but ignored sustained thread-level anomalies in du1's L1/MAC processing (THREAD_L1_tx_thread_max_runtime_ns, THREAD_L1_rx_thread_voluntary_ctxsw) that directly correlate with memory contention. It misattributed PDCP throughput issues to CPU contention without validating memory metrics, and never checked du1's memory usage KPIs (e.g., memory_used_percent) which would have shown the true cause. The absence of logs was treated as confirmation rather than a data gap."
+84,task_2,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784669491.401
+datetime: 2026-07-22 03:01:31
+reason: Network_Contention
+run_id: 94
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784669491401
+phase_end_epoch_ms: 1784669801278","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",default_bias_guess,insufficient_exploration,8,"Given the absence of telemetry anomalies... the best fit is CPU_Contention_cu or Memory_Contention_du0/du1, but without concrete evidence, this remains speculative","The agent exhaustively checked metrics, logs, and resource limits but found no anomalies, leading it to default to CPU_Contention_cu as a fallback hypothesis without evidence. The ground truth (Network_Contention) was never investigated due to a lack of network-specific telemetry analysis (e.g., traffic congestion, latency spikes, or link utilization metrics). The agent's trajectory shows no exploration of network-layer KPIs, making this a clear case of default bias."
+85,task_7,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784670232.187
+datetime: 2026-07-22 03:13:52
+reason: L1_Contention_du1
+run_id: 95
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784670232187
+phase_end_epoch_ms: 1784670537608","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:08:55"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Contention_cu""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:08:55"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,10,The CU's memory and CPU anomalies... aligned with the observed SCTP endpoint removal... root cause component is `cu`,"The agent correctly identified the SCTP failure in F1AP.log at 03:13:55 but failed to localize it to du1 due to insufficient exploration of DU-specific telemetry. It prematurely attributed the failure to CU resource contention based on unrelated metrics (ru_minflt, ru_utime_us) that began at 03:08:55, ignoring the ground-truth L1_Contention_du1 signal in the DUs' unexamined thread-level metrics. The agent never checked du1's THREAD_L1_* metrics (e.g., cpu_migrations, involuntary_ctxsw) that would have directly indicated the L1 contention."
+86,task_1,0.0,MAC_Contention_du1,"level: Application
+component: du1
+timestamp: 1784670952.53
+datetime: 2026-07-22 03:25:52
+reason: MAC_Contention_du1
+run_id: 96
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784670952530
+phase_end_epoch_ms: 1784671260321","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:21:03"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,wrong_localization;default_bias_guess,3,"The earliest anomalies occurred in the following order: - DU0 at 2026-07-22 03:21:03 IST... Since DU0's anomaly occurred first, the root cause is most likely DU0-related","The agent focused exclusively on CPU/memory metrics and ignored MAC layer telemetry that would have revealed the true MAC_Contention_du1 fault. It localized the root cause to DU0 based on the earliest CPU anomaly timestamp (03:21:03), but never examined MAC-related KPIs (e.g., MAC scheduling delays, buffer overflows) that would have shown the actual contention on DU1 at 03:25:52. The investigation failed to explore the decisive telemetry family for this specific fault type."
+87,task_4,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784671689.196
+datetime: 2026-07-22 03:38:09
+reason: PDCP_Contention_cu
+run_id: 97
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784671689196
+phase_end_epoch_ms: 1784671998468","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:33:09"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:33:09"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess,5,The analysis of CU midhaul counters and DU F1u counters revealed sustained mismatches... concluded `Network_Contention` as the root cause,"The agent identified CPU contention in DUs based on midhaul/F1u mismatches and thread anomalies but failed to examine PDCP-specific telemetry (e.g., `PDCP_*` KPIs in CU logs/metrics) that would have revealed the ground-truth PDCP_Contention_cu. Its analysis focused on CPU and network-layer metrics, missing the application-layer signal. The CU's midhaul counters were deemed 'normal' despite the PDCP-level contention, which would not directly impact midhaul traffic. The agent never checked CU application-layer logs or PDCP-specific KPIs, leading to a misattribution."
+88,task_3,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784672425.503
+datetime: 2026-07-22 03:50:25
+reason: QueueSize_Tuning_du0
+run_id: 98
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784672425503
+phase_end_epoch_ms: 1784672732815","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,11,"All metrics, logs, and topology checks showed no anomalies... root cause must be a subtle, unmeasured factor. The only remaining plausible component is the Network","The agent conducted extensive checks across CPU, memory, network, and layer-specific metrics but never examined queue-specific metrics (e.g., buffer occupancy, scheduling delays) or application-layer logs that would have revealed DU0's queue tuning anomaly. Its final 'Network_Contention' hypothesis was a default fallback after exhausting other options, without evidence from the actual root cause component (DU0). The investigation failed to explore the decisive telemetry family (queue management metrics) required to identify the application-level issue."
+89,task_4,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784673161.076
+datetime: 2026-07-22 04:02:41
+reason: Memory_Leak_cu
+run_id: 99
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784673161076
+phase_end_epoch_ms: 1784673464633","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 03:57:41"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",default_bias_guess,insufficient_exploration,5,The CU's KPIs at the earliest anomaly timestamp do not exceed 1.5× P95 thresholds... ruling out CPU_Contention_cu and Memory_Contention_cu,"The agent identified the CU as the root cause component but incorrectly attributed it to CPU_Contention_cu. Despite exhaustive checks of CPU, memory, and network KPIs showing no threshold exceedances, the agent defaulted to a generic CPU contention diagnosis without evidence. The ground truth (Memory_Leak_cu) was never investigated through memory usage trend analysis (e.g., tracking `ru_maxrss_kb` over time), which would have shown a gradual increase. The agent's failure to explore memory-specific metrics and its reliance on a common default hypothesis led to the incorrect conclusion."
+90,task_6,0.5,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784674317.918
+datetime: 2026-07-22 04:21:57
+reason: PortFlap_CU_du0
+run_id: 101
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784674317918
+phase_end_epoch_ms: 1784674621369","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",sibling_confusion,misread_evidence;insufficient_exploration,4,Received SCTP state 1 for assoc_id 1281... confirms a disruption in the CU-du0 F1 link,The agent correctly identified the CU-du0-link as the affected component via the SCTP state 1 event in F1AP.log but misclassified the fault as a permanent LinkFailure instead of the ground-truth PortFlap. It failed to verify whether the link re-established after the 04:22:01 SCTP teardown (which would distinguish a flap from a sustained failure) and ignored the ground-truth timestamp (04:21:57) showing the flap began before the observed event. The agent also accepted a single SCTP state change as definitive without checking for subsequent reconnections or flap patterns in the logs.
+91,task_7,1.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784675055.389
+datetime: 2026-07-22 04:34:15
+reason: LinkFailure_CU_du0
+run_id: 102
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784675055389
+phase_end_epoch_ms: 1784675362052","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 04:34:21"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",correct_with_evidence,,12,"DU0's midhaul traffic ceased, confirming the affected F1 link is CU-du0",The agent correctly identified the CU-du0-link failure by correlating the SCTP state transition in F1AP.log (assoc_id 541 removal at 04:34:21.592) with a simultaneous drop in DU0's midhaul traffic (`f1u_rlc_bytes` below P5 threshold). This dual evidence from logs and metrics directly confirmed the LinkFailure_CU_du0 diagnosis. The timestamp discrepancy (04:34:21 vs ground truth 04:34:15) is within acceptable tolerance for the given context.
+92,task_3,1.0,CPU_Contention_cu,"level: Infrastructure
+component: cu
+timestamp: 1784675795.343
+datetime: 2026-07-22 04:46:35
+reason: CPU_Contention_cu
+run_id: 103
+category: Infrastructure
+anomaly_name: CPU_Contention_cu
+phase_start_epoch_ms: 1784675795343
+phase_end_epoch_ms: 1784676103240","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 04:46:43"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",correct_with_evidence,,3,"""Received SCTP state 1 for assoc_id 541, removing endpoint""",The agent correctly identified CPU contention on the CU by correlating the SCTP endpoint removal log (04:46:43) with the CU's involuntary context switch anomalies. It ruled out link failure via F1 traffic metrics and prioritized temporal causality (CU's log precedes DU anomalies). The conclusion aligns with the ground truth and is supported by the decisive log-metric correlation.
+93,task_2,0.0,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784676530.838
+datetime: 2026-07-22 04:58:50
+reason: Memory_Contention_du0
+run_id: 104
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784676530838
+phase_end_epoch_ms: 1784676838266","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,anchoring_no_verification,7,"The analysis reveals: 1. Missing CPU Specs: ... 2. Thread-Level Anomalies in DUs: ... involuntary context switches, CPU migrations","The agent focused exclusively on CPU-related metrics (ru_utime_us, thread context switches) and network-layer anomalies, but never examined memory-specific telemetry (e.g., `ru_maxrss_kb`, `memory_pressure`, or page fault counters) that would have revealed the actual Memory_Contention in du0. Its conclusion relied on thread-level CPU contention signals (involuntary_ctxsw) without cross-checking memory usage patterns during the failure window. The absence of memory telemetry analysis constitutes a critical gap in evidence collection."
+94,task_3,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784677265.393
+datetime: 2026-07-22 05:11:05
+reason: Network_Contention
+run_id: 105
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784677265393
+phase_end_epoch_ms: 1784677576292","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,default_bias_guess,1,"network/F1 link counters (mhtx_bytes) are unaffected, ruling out link failures","The agent focused exclusively on CPU metrics and container/resource allocation, ignoring the ground-truth Network_Contention signal. It never examined midhaul traffic, F1 link congestion, or packet loss counters that would have revealed network-level contention. The THREAD_L1 CPU anomalies were misattributed to DU0's processing without correlating with network telemetry. The investigation failed to explore the decisive network KPIs that would have aligned with the ground-truth fault."
+95,task_3,1.0,L1_Contention_du0,"level: Application
+component: du0
+timestamp: 1784678004.455
+datetime: 2026-07-22 05:23:24
+reason: L1_Contention_du0
+run_id: 106
+category: Application
+anomaly_name: L1_Contention_du0
+phase_start_epoch_ms: 1784678004455
+phase_end_epoch_ms: 1784678309559","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    }
+}",correct_lucky_guess,ambiguous_telemetry,7,"Given the lack of data to distinguish between DUs, the answer defaults to `QueueSize_Tuning_du0` as a representative example of this failure class.","The agent correctly identified du0 as the root cause component but attributed it to QueueSize_Tuning_du0 instead of the ground-truth L1_Contention_du0. The conclusion relied on the absence of telemetry for queue-related metrics and a hypothesis about queue misconfiguration, with no direct evidence in the data. The agent explicitly acknowledged the lack of observable anomalies and the missing metrics as the basis for the guess. While the component was correct, the reasoning was speculative and not supported by telemetry."
+96,task_2,0.0,MAC_Contention_du1,"level: Application
+component: du1
+timestamp: 1784678728.727
+datetime: 2026-07-22 05:35:28
+reason: MAC_Contention_du1
+run_id: 107
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784678728727
+phase_end_epoch_ms: 1784679035911","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",sibling_confusion,misread_evidence,5,DU1's `THREAD_L1_stats_irq_count` and `involuntary_ctxsw` metrics... align with **L1 (PHY-layer) processing contention**,"The agent correctly identified du1 as the faulty component but misattributed the anomaly to L1_Contention instead of MAC_Contention. The analysis focused on `THREAD_L1_stats_irq_count` and `involuntary_ctxsw` metrics, interpreting them as L1 (PHY-layer) thread contention. However, these metrics are more indicative of MAC layer scheduling issues (e.g., MAC scheduler contention causing involuntary context switches). The agent failed to distinguish between L1 and MAC layer telemetry signals, leading to sibling_confusion. No evidence of MAC-specific metrics (e.g., MAC scheduling delays, buffer overflows) was examined to confirm the correct diagnosis."
+97,task_6,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784679466.526
+datetime: 2026-07-22 05:47:46
+reason: PDCP_Contention_cu
+run_id: 108
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784679466526
+phase_end_epoch_ms: 1784679776666","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,17,"The CU sends midhaul traffic (mhtx_in_bytes), but DUs receive zero f1u_rlc_bytes, with no logged errors in F1AP, MAC, or RLC logs. The F1 links were operational at run start but unrecorded at run end, and no network-layer anomalies were detected.","The agent incorrectly attributed the midhaul traffic mismatch (CU sends data, DUs receive none) to F1 link failures despite no evidence of link state changes or network-layer anomalies. It failed to explore alternative explanations like PDCP contention in the CU (ground truth), which could explain the traffic drop without link failure. The traffic mismatch alone is insufficient to diagnose a link failure without corroborating evidence (e.g., SCTP teardowns, interface errors). The agent also ignored the CU's voluntary context switch anomaly, which aligns with PDCP_Contention_cu but was dismissed due to lack of log evidence."
+98,task_3,0.0,QueueSize_Tuning_du1,"level: Application
+component: du1
+timestamp: 1784680192.851
+datetime: 2026-07-22 05:59:52
+reason: QueueSize_Tuning_du1
+run_id: 109
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784680192851
+phase_end_epoch_ms: 1784680500601","{
+    ""1"": {
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,8,The root cause component is likely the Network due to missing metadata and potential uninstrumented settings,"The agent exhaustively checked midhaul, radio-layer, GTP, and network metrics/logs but never examined application-layer telemetry (e.g., queue size metrics in du1's logs or KPIs like `queue_depth_*`, `sched_latency_*`). The ground-truth QueueSize_Tuning_du1 would manifest in application-specific metrics (e.g., scheduler queue depth, thread latency) that were never analyzed. The agent defaulted to network-related explanations due to absence of evidence in explored domains, but failed to consider unexplored application-layer signals."
+99,task_6,0.0,Memory_Leak_du1,"level: Application
+component: du1
+timestamp: 1784680929.428
+datetime: 2026-07-22 06:12:09
+reason: Memory_Leak_du1
+run_id: 110
+category: Application
+anomaly_name: Memory_Leak_du1
+phase_start_epoch_ms: 1784680929428
+phase_end_epoch_ms: 1784681232757","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",insufficient_exploration,wrong_localization,1,du1: No anomalies detected.,"The agent failed to examine memory-specific telemetry for du1, which would have revealed the memory leak. Its initial metric check only flagged CU anomalies, leading it to overlook du1 entirely. The absence of memory KPIs in the anomaly detection step (step 1) and lack of log analysis for du1 (steps 3-5) constitute insufficient exploration. The CU's resource limits were irrelevant to the actual memory leak in du1, but the agent never validated du1's memory usage or logs."
+100,task_6,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784682081.772
+datetime: 2026-07-22 06:31:21
+reason: PortFlap_CU_du0
+run_id: 112
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784682081772
+phase_end_epoch_ms: 1784682388555","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",default_bias_guess,insufficient_exploration,24,"The root cause is likely `CPU_Contention_du0` or `CPU_Contention_du1`, as no other telemetry anomalies were detected.","The agent exhaustively checked metrics, logs, and topology but found no anomalies, leading it to default to CPU_Contention_du0 as a generic fallback. It never examined F1 link-specific telemetry (e.g., interface status, SCTP association IDs, or midhaul traffic asymmetry) that would have revealed the port flap. The absence of evidence was misinterpreted as evidence of CPU contention, despite no metric/log directly supporting this claim."
+101,task_6,1.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784682995.536
+datetime: 2026-07-22 06:46:35
+reason: LinkFailure_CU_du0
+run_id: 113
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784682995536
+phase_end_epoch_ms: 1784683297101","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",correct_lucky_guess,ambiguous_telemetry,5,"Based on the absence of telemetry data and the system's behavior, the root cause is likely a LinkFailure_CU_du0 or LinkFailure_CU_du1","The agent correctly identified the root cause (LinkFailure_CU_du0) but did so without examining any actual telemetry data. The investigation revealed that metric and log files for run_113 were entirely missing, yet the agent inferred the fault based solely on the absence of data and a systemic failure assumption. This constitutes a correct answer derived from indirect reasoning rather than direct evidence from telemetry. The decisive step was forming the hypothesis in step 5 without verifying component-specific signals."
+102,task_1,0.0,CPU_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784683786.008
+datetime: 2026-07-22 06:59:46
+reason: CPU_Contention_du1
+run_id: 114
+category: Infrastructure
+anomaly_name: CPU_Contention_du1
+phase_start_epoch_ms: 1784683786008
+phase_end_epoch_ms: 1784684093131","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 06:54:45"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 06:54:45"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",wrong_localization,misread_evidence;insufficient_exploration,3,"The earliest anomaly in the failure window is the `mac_dl_bler_avg` spike in du0 at 2026-07-22 01:24:45.083139072+05:30, followed by similar anomalies in du1's `rc0_rsrp_avg` at the same timestamp","The agent misread the earliest anomaly timestamp (01:24:45+05:30 = 06:54:45) as the root cause time for both DUs, but the ground truth shows du1's CPU contention began at 06:59:46. It incorrectly attributed the first anomaly in du0's `mac_dl_bler_avg` to CPU contention without verifying if this KPI directly indicates CPU issues. The agent also failed to examine du1's specific CPU contention metrics (e.g., `THREAD_L1_stats_cpu_migrations`, `involuntary_ctxsw`) that would have localized the fault correctly. Its conclusion relied on a flawed assumption that the earliest anomaly in any DU implied simultaneous CPU contention in both."
+103,task_5,0.5,Memory_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784684524.291
+datetime: 2026-07-22 07:12:04
+reason: Memory_Contention_du0
+run_id: 115
+category: Infrastructure
+anomaly_name: Memory_Contention_du0
+phase_start_epoch_ms: 1784684524291
+phase_end_epoch_ms: 1784684831157","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:12:10"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,anchoring_no_verification;insufficient_exploration,6,"Assoc_id 1373 from the F1AP.log is not explicitly recorded in the topology's CU-du0-link entry. However, since: 1. The CU-du0-link is the only F1-C link between CU and DU0...","The agent correctly identified the failure time (07:12:10) but misattributed the root cause to the CU-du0-link instead of du0 itself. It observed DU0's L1 thread anomalies (context switches) and an SCTP event in F1AP.log, but assumed assoc_id 1373 mapped to the CU-du0-link without explicit topology confirmation. The actual fault (Memory_Contention_du0) was never investigated via memory metrics (e.g., RAM usage, swap activity) despite DU0 showing CPU contention signs. The agent anchored on the SCTP event and failed to verify whether the assoc_id truly belonged to the link or if memory issues in DU0 were the primary cause."
+104,task_6,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784685265.034
+datetime: 2026-07-22 07:24:25
+reason: Network_Contention
+run_id: 116
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784685265034
+phase_end_epoch_ms: 1784685574746","{
+    ""1"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""L1_Contention_du1""
+    }
+}",insufficient_exploration,wrong_localization,4,The anomalies in `THREAD_L1_tx_thread_total_runtime_ns` for both DUs (double the P95 threshold) indicate L1 processing contention,"The agent identified L1_Contention_du1 based on THREAD_L1_tx_thread_total_runtime_ns anomalies but missed the ground-truth Network_Contention. It never examined network-specific KPIs (e.g., mhrx_bytes, f1u_rlc_tx_bytes) that would have revealed the actual issue. The absence of protocol-layer logs was misinterpreted as evidence, not a data gap. The agent's focus on L1 thread metrics without cross-checking network telemetry led to a wrong localization."
+105,task_2,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784686007.038
+datetime: 2026-07-22 07:36:47
+reason: L1_Contention_du1
+run_id: 117
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784686007038
+phase_end_epoch_ms: 1784686313010","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""L1_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration,9,Missing DU0 metrics during the failure window [...] The root cause must be a DU-side processing issue,"The agent concluded L1_Contention_du0 due to missing DU metrics during the failure window, but the ground truth was L1_Contention_du1. The investigation failed to distinguish between du0 and du1 because metric files for both DUs were missing (Step 1), and no telemetry was available to compare their behavior. The agent assumed the missing metrics implied a fault in du0 without evidence, violating the single failure constraint. The decisive error was attributing the missing data to du0 rather than du1."
+106,task_5,0.0,MAC_Contention_du1,"level: Application
+component: du1
+timestamp: 1784686728.702
+datetime: 2026-07-22 07:48:48
+reason: MAC_Contention_du1
+run_id: 118
+category: Application
+anomaly_name: MAC_Contention_du1
+phase_start_epoch_ms: 1784686728702
+phase_end_epoch_ms: 1784687035930","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:44:12"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 07:44:12"",
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification;time_localization_error,4,"The root cause is the F1 link failure between CU and DUs, with the earliest observable event at 07:44:12","The agent observed SCTP association losses in F1AP.log at 07:44:12 and CU midhaul traffic drops, but misattributed these to F1 link failures rather than investigating DU-specific MAC layer contention. It never examined du1's thread scheduling, MAC-related metrics, or PHY layer telemetry where the ground-truth MAC_Contention would have appeared. The dual-link failure hypothesis was adopted without validating whether both DUs exhibited symmetric symptoms, and the 07:44:12 timestamp predates the actual 07:48:48 onset by 4 minutes 36 seconds."
+107,task_6,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784687465.941
+datetime: 2026-07-22 08:01:05
+reason: PDCP_Contention_cu
+run_id: 119
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784687465941
+phase_end_epoch_ms: 1784687775431","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",insufficient_exploration,default_bias_guess;misread_evidence,9,"The root cause component is **du0**, and the root cause reason is **CPU_Contention_du0**. This conclusion is based on sustained CPU overutilization (>100% in 100ms samples), transient L1 thread scheduling anomalies","The agent incorrectly attributed the fault to du0's CPU contention despite the ground truth being CU's PDCP contention. It failed to examine the CU's PDCP-specific metrics (which were missing from the dataset) and relied on du0's transient L1 thread anomalies without sustained evidence. The absence of PDCP telemetry in the CU metrics prevented detection of the actual fault, but the agent never explicitly acknowledged this gap in its reasoning. Its conclusion was based on incomplete CPU utilization data from du0, which showed high usage but no sustained anomalies."
+108,task_2,0.0,QueueSize_Tuning_du0,"level: Application
+component: du0
+timestamp: 1784688198.872
+datetime: 2026-07-22 08:13:18
+reason: QueueSize_Tuning_du0
+run_id: 120
+category: Application
+anomaly_name: QueueSize_Tuning_du0
+phase_start_epoch_ms: 1784688198872
+phase_end_epoch_ms: 1784688504913","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""Memory_Contention_du0""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,10,"max_rss = 1.2GB (1,230,725,120 bytes) exceeded 512MB (536,870,912 bytes) for du0","The agent identified memory contention in du0 based on memory usage exceeding 512MB limits, but the ground truth was QueueSize_Tuning_du0. The decisive error was attributing the failure to memory metrics despite missing telemetry during the failure window. The agent never examined queue size metrics or logs that could have revealed the true cause, relying solely on memory thresholds. The absence of runtime telemetry forced a guess based on pre-run resource limits, which misaligned with the actual anomaly type."
+109,task_2,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784688933.287
+datetime: 2026-07-22 08:25:33
+reason: Memory_Leak_cu
+run_id: 121
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784688933287
+phase_end_epoch_ms: 1784689236358","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""QueueSize_Tuning_du0""
+    }
+}",wrong_localization,default_bias_guess;insufficient_exploration,10,The root cause is `QueueSize_Tuning_du0` or `QueueSize_Tuning_du1`... answer is `QueueSize_Tuning_du0` (defaulting to the first DU when evidence is inconclusive),"The agent failed to examine the CU's memory metrics (e.g., `ru_maxrss_kb`, `ru_minflt`) during the failure window despite the ground truth being a CU memory leak. Instead, it defaulted to QueueSize_Tuning_du0 after finding no evidence in DU metrics or logs. This reflects insufficient exploration of the CU's telemetry and a default bias guess when evidence was inconclusive."
+110,task_4,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784690088.398
+datetime: 2026-07-22 08:44:48
+reason: PortFlap_CU_du0
+run_id: 123
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784690088398
+phase_end_epoch_ms: 1784690390557","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 08:39:48"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",insufficient_exploration,execution_failure,0,"The Executor failed to complete the instruction, please re-write a new instruction for Executor","The agent's investigation repeatedly failed to process metric data due to persistent executor errors, preventing any meaningful analysis of telemetry. The final answer was a guess without evidence, as the agent never successfully loaded or analyzed the data. The ground-truth PortFlap_CU_du0 would have required examining F1 link telemetry (unavailable in metrics) or logs (never checked)."
+111,task_4,0.0,LinkFailure_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784690817.178
+datetime: 2026-07-22 08:56:57
+reason: LinkFailure_CU_du0
+run_id: 124
+category: Hardware
+anomaly_name: LinkFailure_CU_du0
+phase_start_epoch_ms: 1784690817178
+phase_end_epoch_ms: 1784691124054","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 08:51:57"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",execution_failure,default_bias_guess;insufficient_exploration,0,"The Executor failed to complete the instruction, please re-write a new instruction for Executor","The agent repeatedly violated the rule against manual timestamp conversion, leading to persistent Executor failures. It never successfully processed the CU's metrics to detect anomalies, nor did it examine DU telemetry (which was missing). The final answer defaulted to CPU_Contention_cu without any validated evidence, as the Executor errors blocked data analysis. The ground-truth LinkFailure_CU_du0 would have required examining F1 link telemetry or DU metrics, which were inaccessible."
+112,task_3,0.0,Memory_Contention_du1,"level: Infrastructure
+component: du1
+timestamp: 1784692280.732
+datetime: 2026-07-22 09:21:20
+reason: Memory_Contention_du1
+run_id: 126
+category: Infrastructure
+anomaly_name: Memory_Contention_du1
+phase_start_epoch_ms: 1784692280732
+phase_end_epoch_ms: 1784692588508","{
+    ""1"": {
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""CU-du1-link"",
+        ""root cause reason"": ""LinkFailure_CU_du1""
+    }
+}",insufficient_exploration,misread_evidence,6,"The CU is transmitting midhaul traffic (`mhtx_in_bytes`), but both DUs receive zero `f1u_rlc_rx_bytes`, confirming a complete F1 link failure between CU and DUs","The agent observed CU midhaul traffic asymmetry (CU transmitting but DUs receiving zero bytes) and concluded F1 link failure, but failed to investigate DU-side memory metrics that would have revealed the actual Memory_Contention on du1. The traffic mismatch was misinterpreted as a network link issue rather than a DU processing bottleneck caused by memory exhaustion. The agent never examined memory/CPU metrics on the DUs, which would have shown the decisive signal (e.g., high memory usage on du1)."
+113,task_6,0.0,Network_Contention,"level: Infrastructure
+component: Network
+timestamp: 1784693019.456
+datetime: 2026-07-22 09:33:39
+reason: Network_Contention
+run_id: 127
+category: Infrastructure
+anomaly_name: Network_Contention
+phase_start_epoch_ms: 1784693019456
+phase_end_epoch_ms: 1784693330199","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:33:49"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""PortFlap_CU_du0""
+    }
+}",wrong_localization,default_bias_guess;insufficient_exploration,9,assuming `assoc_id 541` maps to DU0 per runtime context,"The agent identified an SCTP endpoint removal in the F1AP log at 09:33:49.776 but assumed `assoc_id 541` mapped to `CU-du0-link` without evidence. The topology file explicitly showed no `assoc_id` mapping for either link, and DU-specific metrics (e.g., `f1u_rlc_tx_bytes`, `mac_dl_bo`) showed no anomalies for either DU during the event. The agent failed to verify which DU was impacted by the SCTP state change, leading to an unsupported localization to `CU-du0-link`. The ground truth (Network_Contention) was unrelated to the transient SCTP event the agent focused on."
+114,task_6,0.0,L1_Contention_du1,"level: Application
+component: du1
+timestamp: 1784693753.732
+datetime: 2026-07-22 09:45:53
+reason: L1_Contention_du1
+run_id: 128
+category: Application
+anomaly_name: L1_Contention_du1
+phase_start_epoch_ms: 1784693753732
+phase_end_epoch_ms: 1784694059293","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:45:56"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}",wrong_localization,insufficient_exploration;anchoring_no_verification,3,"assoc_id 541, removing endpoint","The agent correctly identified an SCTP endpoint removal in F1AP.log at 09:45:56 but incorrectly mapped it to the CU-du0-link based on an unverified assumption about assoc_id 541. It failed to examine du1's L1-specific metrics (e.g., THREAD_L1_stats_cpu_migrations) or correlate the traffic anomalies on du1 with L1 contention. The zero midhaul traffic on du0 was misinterpreted as a link failure rather than a symptom of upstream L1 issues on du1 blocking traffic flow."
+115,task_5,0.5,MAC_Contention_du0,"level: Application
+component: du0
+timestamp: 1784694460.083
+datetime: 2026-07-22 09:57:40
+reason: MAC_Contention_du0
+run_id: 129
+category: Application
+anomaly_name: MAC_Contention_du0
+phase_start_epoch_ms: 1784694460083
+phase_end_epoch_ms: 1784694766726","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 09:52:40"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    }
+}",default_bias_guess,insufficient_exploration,2,"THREAD_L1_stats_voluntary_ctxsw=1.0 (P95) while du1=0.0, suggesting potential scheduling irregularities in du0","The agent correctly identified du0 as the component but misattributed the root cause to CPU contention based on involuntary context switches at 09:52:40. It failed to examine MAC-layer metrics (e.g., scheduling failures, RLC buffer overflows) that would have revealed the ground-truth MAC_Contention. The CPU metrics were a red herring; the actual MAC contention began at 09:57:40, but the agent never validated this timeframe with granular telemetry. Its reliance on CPU metrics as the default failure mode constitutes a diagnostic bias."
+116,task_2,0.0,PDCP_Contention_cu,"level: Application
+component: cu
+timestamp: 1784695197.258
+datetime: 2026-07-22 10:09:57
+reason: PDCP_Contention_cu
+run_id: 130
+category: Application
+anomaly_name: PDCP_Contention_cu
+phase_start_epoch_ms: 1784695197258
+phase_end_epoch_ms: 1784695507290","{
+    ""1"": {
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""CPU_Contention_cu""
+    }
+}",default_bias_guess,execution_failure;insufficient_exploration,25,"The Executor failed to complete the instruction, please re-write a new instruction for Executor.","The agent repeatedly failed to execute the anomaly detection function correctly, leading to malformed outputs with repeated column names instead of actual data. Without valid telemetry analysis, it defaulted to a generic CPU contention diagnosis despite the ground truth being PDCP contention. The persistent executor errors blocked examining PDCP-specific metrics, and the agent never validated alternative hypotheses."
+117,task_6,0.0,QueueSize_Tuning_du1,"level: Application
+component: du1
+timestamp: 1784695937.297
+datetime: 2026-07-22 10:22:17
+reason: QueueSize_Tuning_du1
+run_id: 131
+category: Application
+anomaly_name: QueueSize_Tuning_du1
+phase_start_epoch_ms: 1784695937297
+phase_end_epoch_ms: 1784696243899","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess,3,"Anomalies in CPU usage (ru_utime_us, ru_stime_us) and context switches (ru_nvcsw, ru_nivcsw) were detected in both DUs... suggests potential CPU contention","The agent focused exclusively on CPU and thread-level metrics, identifying moderate CPU contention in both DUs but never examined queue-related KPIs (e.g., scheduler backlogs, RLC buffer sizes) that would have revealed the QueueSize_Tuning anomaly on du1. Its analysis stopped at the first plausible hypothesis (CPU contention) without verifying alternative explanations. The ground-truth anomaly was entirely outside the metrics it investigated."
+118,task_3,0.0,Memory_Leak_cu,"level: Application
+component: cu
+timestamp: 1784696675.452
+datetime: 2026-07-22 10:34:35
+reason: Memory_Leak_cu
+run_id: 132
+category: Application
+anomaly_name: Memory_Leak_cu
+phase_start_epoch_ms: 1784696675452
+phase_end_epoch_ms: 1784696978655","{
+    ""1"": {
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess;anchoring_no_verification,5,The root cause components are **CPU_Contention_du0** and **CPU_Contention_du1** due to severe CPU starvation and L1 thread delays confirmed by metric anomalies,"The agent focused exclusively on CPU metrics for DUs (THREAD_L1_rx_thread, ru_utime_us) and ignored the CU's memory metrics (ru_maxrss_kb) despite the ground truth being a CU memory leak. The P95 threshold for CU memory (39,720 KB) was not compared against actual values during the failure window, and the agent never examined the CU's memory usage trends. By anchoring on CPU anomalies in DUs and neglecting the CU's memory telemetry, it missed the decisive signal. The absence of log entries was misinterpreted as evidence of systemic DU issues rather than a failure in an unmonitored component (CU memory)."
+119,task_7,0.0,PortFlap_CU_du0,"level: Hardware
+component: CU-du0-link
+timestamp: 1784697826.792
+datetime: 2026-07-22 10:53:46
+reason: PortFlap_CU_du0
+run_id: 134
+category: Hardware
+anomaly_name: PortFlap_CU_du0
+phase_start_epoch_ms: 1784697826792
+phase_end_epoch_ms: 1784698132631","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 10:48:46"",
+        ""root cause component"": ""du0"",
+        ""root cause reason"": ""CPU_Contention_du0""
+    },
+    ""2"": {
+        ""root cause occurrence datetime"": ""2026-07-22 10:48:46"",
+        ""root cause component"": ""du1"",
+        ""root cause reason"": ""CPU_Contention_du1""
+    }
+}",insufficient_exploration,default_bias_guess;misread_evidence,3,The absence of SCTP-related entries in `F1AP.log` rules out F1 link failures as the root cause,"The agent misattributed the fault to CPU contention in both DUs despite the ground truth being a port flap on the CU-du0-link. It failed to examine interface/port telemetry (e.g., link status, error counters) that would have revealed the hardware issue. The absence of SCTP logs was misinterpreted as ruling out link failures, ignoring that port flaps affect data plane metrics, not control plane logs. The topology misconfiguration was a red herring; the real fault required checking physical layer telemetry. The agent's reliance on CPU metrics and context switches led to a default bias guess."
+120,task_7,0.0,LinkFailure_CU_du1,"level: Hardware
+component: CU-du1-link
+timestamp: 1784698556.452
+datetime: 2026-07-22 11:05:56
+reason: LinkFailure_CU_du1
+run_id: 135
+category: Hardware
+anomaly_name: LinkFailure_CU_du1
+phase_start_epoch_ms: 1784698556452
+phase_end_epoch_ms: 1784698862873","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 11:00:56"",
+        ""root cause component"": ""Network"",
+        ""root cause reason"": ""Network_Contention""
+    }
+}",insufficient_exploration,default_bias_guess,10,"The root cause component is `Network`, the root cause occurrence time is within 2026-07-22 11:00:56 to 11:11:02 IST, and the root cause reason is `Network_Contention`.","The agent exhaustively checked all available telemetry (metrics, logs, traffic counters) but found no anomalies, leading it to default to 'Network_Contention' as the only unexamined possibility. However, the ground-truth fault (LinkFailure_CU_du1) would have manifested as a sustained drop in DU1's midhaul reception (`mhrx_in_bytes`) vs CU's transmission (`mhtx_out_bytes`). The agent's midhaul traffic analysis (steps 5 and 7) explicitly ruled out such discrepancies, but this was incorrect: the dataset likely contained a mismatch in these counters during the failure window that the agent failed to detect due to overly broad filtering or misaligned timestamp ranges. The agent never validated the F1AP.log for SCTP teardowns (which would have localized the link) or compared DU0/DU1 traffic asymmetrically. Its final answer was a default guess due to insufficient exploration of decisive telemetry."
+121,task_7,0.0,CPU_Contention_du0,"level: Infrastructure
+component: du0
+timestamp: 1784699553.275
+datetime: 2026-07-22 11:22:33
+reason: CPU_Contention_du0
+run_id: 136
+category: Infrastructure
+anomaly_name: CPU_Contention_du0
+phase_start_epoch_ms: 1784699553275
+phase_end_epoch_ms: 1784699865846","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-22 11:27:45"",
+        ""root cause component"": ""cu"",
+        ""root cause reason"": ""Memory_Leak_cu""
+    }
+}",insufficient_exploration,default_bias_guess,8,"The CU's memory (`ru_maxrss_kb`) increased from 28,224 KB to 37,504 KB during the run, while DU memory remained stable. This suggests a gradual memory leak in the CU as the root cause.","The agent misattributed a memory leak in the CU as the root cause despite the ground truth being CPU contention in du0. The investigation failed to examine CPU utilization metrics (e.g., `ru_utime_us`, `ru_stime_us`, `ru_nivcsw`) for du0 during the failure window, which would have shown elevated CPU usage. Instead, it focused on memory trends and assumed a leak based on CU's gradual memory growth, ignoring the actual CPU contention signal. The absence of log events and link failures led to a default bias toward memory-related diagnoses without verifying CPU telemetry."

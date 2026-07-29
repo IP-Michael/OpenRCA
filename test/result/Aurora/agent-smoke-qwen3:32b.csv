@@ -1,0 +1,18 @@
+instruction,prediction,groundtruth,passed,failed,score,row_id,task_index
+"During the time range 2026-07-21 08:57:56 to 2026-07-21 09:07:58 (Asia/Kolkata), exactly 1 failure was detected on Aurora/run_2. The root cause component, root cause reason are currently unknown. Please identify the root cause component and root cause reason.","{
+    ""1"": {
+        ""root cause occurrence datetime"": ""2026-07-21 09:02:58"",
+        ""root cause component"": ""CU-du0-link"",
+        ""root cause reason"": ""LinkFailure_CU_du0""
+    }
+}","level: Hardware
+component: CU-du1-link
+timestamp: 1784604776.972
+datetime: 2026-07-21 09:02:56
+reason: PortFlap_CU_du1
+run_id: 2
+category: Hardware
+anomaly_name: PortFlap_CU_du1
+phase_start_epoch_ms: 1784604776972
+phase_end_epoch_ms: 1784605078527",,"CU-du1-link
+PortFlap_CU_du1",0.0,0.0,task_6

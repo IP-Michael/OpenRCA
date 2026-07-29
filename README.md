@@ -1,5 +1,7 @@
 # OpenRCA
 
+> **This fork adds the Aurora 5G RAN dataset and evaluation pipeline — see [README_AURORA.md](README_AURORA.md) for setup, usage, and results.**
+
 ![Python Version](https://img.shields.io/badge/Python-3776AB?&logo=python&logoColor=white-blue&label=3.10%20%7C%203.11)&ensp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)&ensp;
 ![Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
