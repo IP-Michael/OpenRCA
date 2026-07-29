@@ -1,0 +1,15 @@
+{
+    "default": "my-model",
+    "my-model": {
+        "model": "qwen3:32b",
+        "api_key": "ollama",
+        "base_url": "http://YOUR_LLM_SERVER:11434/v1",
+        "temperature": 0.0
+    },
+    "another-model-entry": {
+        "model": "gpt-4o",
+        "api_key": "sk-...",
+        "base_url": null,
+        "temperature": 0.0
+    }
+}

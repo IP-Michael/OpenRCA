@@ -4,20 +4,24 @@ import time
 from typing import Any, Dict, Optional
 
 _DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.json")
-_MODEL_KEY = "gemini3pro"
+_FALLBACK_MODEL_KEY = "gemini3pro"
 
 def _load_config() -> Dict[str, Any]:
     config_path = os.environ.get("API_CONFIG_PATH") or _DEFAULT_CONFIG_PATH
     if not os.path.isabs(config_path):
         config_path = os.path.join(os.path.dirname(__file__), "..", config_path)
-    
+
     with open(config_path, "r") as f:
         meta_config = json.load(f)
-    
-    model_config = meta_config.get(_MODEL_KEY, {})
+
+    # model entry selection: env var > "default" field in config.json > legacy key
+    model_key = (os.environ.get("API_MODEL_KEY")
+                 or meta_config.get("default")
+                 or _FALLBACK_MODEL_KEY)
+    model_config = meta_config.get(model_key, {})
     
     return {
-        "MODEL": model_config.get("model", _MODEL_KEY),
+        "MODEL": model_config.get("model", model_key),
         "API_KEY": model_config.get("api_key"),
         "API_BASE": model_config.get("base_url"),
         "TEMPERATURE": model_config.get("temperature", 0.0),

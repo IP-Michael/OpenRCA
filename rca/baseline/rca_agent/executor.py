@@ -44,7 +44,7 @@ rule = """## RULES OF PYTHON CODE WRITING:
 7. Do not visualize the data or draw pictures or graphs via Python. You can only provide text-based results. Never include the `matplotlib` or `seaborn` library in the code.
 8. Do not generate anything else except the Python code block except the instruction tell you to 'Use plain English'. If you find the input instruction is a summarization task (which is typically happening in the last step), you should comprehensively summarize the conclusion as a string in your code and display it directly.
 9. Do not calculate threshold AFTER filtering data within the given time duration. Always calculate global thresholds using the entire KPI series of a specific component within a metric file BEFORE filtering data within the given time duration.
-10. All issues use **UTC+8** time. However, the local machine's default timezone is unknown. Please use `pytz.timezone('Asia/Shanghai')` to explicityly set the timezone to UTC+8.
+10. The local machine's default timezone is unknown, so always set the timezone explicitly with `pytz`. Use the timezone stated in the domain knowledge if one is given; otherwise issues use **UTC+8** time (`pytz.timezone('Asia/Shanghai')`).
 """
 
 def execute_act(instruction:str, background:str, history, attempt, kernel, logger) -> str:

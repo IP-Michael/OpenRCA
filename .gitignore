@@ -1,7 +1,9 @@
 # OpenRCA
 .temp/
 dataset/
-test/
+test/*
+!test/result
+!test/analysis
 api_config.yaml
 config.json
 

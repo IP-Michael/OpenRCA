@@ -26,6 +26,8 @@ def main(args, uid, dataset):
         import rca.baseline.rca_agent.prompt.basic_prompt_Bank as bp
     elif dataset == "Market/cloudbed-1" or dataset == "Market/cloudbed-2":
         import rca.baseline.rca_agent.prompt.basic_prompt_Market as bp
+    elif dataset == "Aurora":
+        import rca.baseline.rca_agent.prompt.basic_prompt_Aurora as bp
 
     inst_file = f"dataset/{dataset}/query.csv"
     gt_file = f"dataset/{dataset}/record.csv"
